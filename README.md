@@ -77,7 +77,3 @@ git remote add origin <tu-repo-url>
 git push -u origin main
 ```
 
-Si quieres, en el siguiente paso te puedo generar también:
-- plantilla de `xcodeproj`,
-- navegación completa por tabs,
-- y tests iniciales con XCTest.
