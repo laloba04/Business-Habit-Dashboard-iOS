@@ -23,11 +23,13 @@ struct LoginView: View {
                 Section {
                     Button {
                         Task { await authViewModel.submit() }
+                        Task { await authViewModel.login() }
                     } label: {
                         if authViewModel.isLoading {
                             ProgressView()
                         } else {
                             Text(authViewModel.authMode.rawValue)
+                            Text("Entrar")
                         }
                     }
                     .disabled(authViewModel.email.isEmpty || authViewModel.password.isEmpty || authViewModel.isLoading)

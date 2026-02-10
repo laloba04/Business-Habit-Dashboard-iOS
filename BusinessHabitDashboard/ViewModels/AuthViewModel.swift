@@ -12,6 +12,8 @@ final class AuthViewModel: ObservableObject {
         var id: String { rawValue }
     }
 
+@MainActor
+final class AuthViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var currentUser: SessionUser?
@@ -21,6 +23,7 @@ final class AuthViewModel: ObservableObject {
     @Published var authMode: AuthMode = .login
 
     // Clave para persistir la sesión en UserDefaults.
+
     private let storageKey = "session_user"
 
     init() {
@@ -40,6 +43,9 @@ final class AuthViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         infoMessage = nil
+    func login() async {
+        isLoading = true
+        errorMessage = nil
 
         do {
             let user = try await AuthService.shared.login(email: email, password: password)

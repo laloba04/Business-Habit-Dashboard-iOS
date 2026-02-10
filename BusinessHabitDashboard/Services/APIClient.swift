@@ -5,6 +5,7 @@ import Foundation
 
 enum APIError: LocalizedError {
     // Errores típicos de red/decodificación que mostramos en la UI.
+enum APIError: LocalizedError {
     case invalidResponse
     case serverError(Int, String)
     case decodingError
