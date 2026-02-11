@@ -55,8 +55,11 @@ struct LoginView: View {
                         HStack {
                             if showPassword {
                                 TextField("Ingresa tu contraseña", text: $authViewModel.password)
+                                    .textContentType(.none)
+                                    .autocorrectionDisabled()
                             } else {
                                 SecureField("Ingresa tu contraseña", text: $authViewModel.password)
+                                    .textContentType(.none)
                             }
 
                             Button {

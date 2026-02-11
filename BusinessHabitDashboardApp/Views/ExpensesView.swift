@@ -36,7 +36,7 @@ struct ExpensesView: View {
                     HStack {
                         Text(expense.category)
                         Spacer()
-                        Text(expense.amount, format: .currency(code: "USD"))
+                        Text(expense.amount, format: .currency(code: "EUR"))
                     }
                 }
             }

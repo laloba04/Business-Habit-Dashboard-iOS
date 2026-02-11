@@ -57,8 +57,11 @@ struct SignUpView: View {
                     HStack {
                         if showPassword {
                             TextField("Mínimo 6 caracteres", text: $authViewModel.password)
+                                .textContentType(.none)
+                                .autocorrectionDisabled()
                         } else {
                             SecureField("Mínimo 6 caracteres", text: $authViewModel.password)
+                                .textContentType(.none)
                         }
 
                         Button {
@@ -82,8 +85,11 @@ struct SignUpView: View {
                     HStack {
                         if showConfirmPassword {
                             TextField("Repite tu contraseña", text: $confirmPassword)
+                                .textContentType(.none)
+                                .autocorrectionDisabled()
                         } else {
                             SecureField("Repite tu contraseña", text: $confirmPassword)
+                                .textContentType(.none)
                         }
 
                         Button {
