@@ -5,10 +5,13 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
 ## ✅ Características implementadas
 
 - ✅ **Arquitectura MVVM** separada por capas
-- ✅ **Autenticación completa**:
-  - Sign Up (registro de usuarios)
-  - Login (inicio de sesión)
-  - Logout (cierre de sesión)
+- ✅ **Autenticación**:
+  - Sign Up con validación de contraseña
+  - Login con normalización de emails
+  - Vistas separadas con diseño moderno
+  - Confirmación de contraseña en tiempo real
+  - Botones para mostrar/ocultar contraseñas
+  - Manejo de errores específicos (rate limit)
   - Sesión persistente con JWT
 - ✅ **Gestión de Hábitos**:
   - CRUD completo (crear, leer, actualizar, eliminar)
@@ -16,6 +19,7 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
 - ✅ **Gestión de Gastos**:
   - CRUD completo por categorías
   - API integrada con Supabase
+  - Formato de moneda en euros (€)
 - ✅ **Dashboard**:
   - Métricas en tiempo real
   - Gráficos con **Swift Charts**
@@ -56,10 +60,11 @@ BusinessHabitDashboardApp/
     │   ├── HabitViewModel.swift        # Lógica de hábitos
     │   └── ExpenseViewModel.swift      # Lógica de gastos
     ├── Views/
-    │   ├── LoginView.swift             # Pantalla de login/registro
+    │   ├── LoginView.swift             # Pantalla de login
+    │   ├── SignUpView.swift            # Pantalla de registro
     │   ├── DashboardView.swift         # Dashboard principal
     │   ├── HabitsView.swift            # Lista de hábitos
-    │   ├── ExpensesView.swift          # Lista de gastos
+    │   ├── ExpensesView.swift          # Lista de gastos (formato EUR)
     │   └── RootView.swift              # Vista raíz con navegación
     └── Docs/
         └── SUPABASE_SETUP.md           # Instrucciones de Supabase
@@ -128,16 +133,18 @@ Las credenciales **nunca** están en el código que se sube a git.
 ## 🧭 Roadmap
 
 ### ✅ Completado
-- [x] Autenticación completa (Sign Up + Login + Logout)
+- [x] Autenticación con Sign Up y Login (vistas separadas)
+- [x] Validación de contraseñas en tiempo real
 - [x] CRUD de hábitos con Supabase
-- [x] CRUD de gastos con Supabase
+- [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
-- [x] Sistema de seguridad para credenciales
+- [x] Sistema de seguridad para credenciales (template)
 - [x] Arquitectura MVVM limpia
 
-### 🚧 Mejoras futuras sugeridas
-- [ ] Reset password / recuperación de cuenta
+### 🚧 Próximas mejoras
+- [ ] **Vista de Perfil con botón de Logout** (prioridad alta)
 - [ ] Navegación por tabs: Dashboard / Hábitos / Gastos / Perfil
+- [ ] Reset password / recuperación de cuenta
 - [ ] Persistencia offline con CoreData
 - [ ] Notificaciones locales para recordatorios de hábitos
 - [ ] Tests unitarios de ViewModels
