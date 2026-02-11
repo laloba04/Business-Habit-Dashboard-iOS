@@ -31,6 +31,9 @@ final class AuthService {
 
     // Registra un nuevo usuario con email/password
     func signUp(email: String, password: String) async throws -> SessionUser {
+        // Normalizar email: eliminar espacios y convertir a minúsculas
+        let safeEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
         let endpoint = SupabaseConfig.projectURL
             .appendingPathComponent("auth/v1/signup")
 
@@ -40,7 +43,7 @@ final class AuthService {
         request.setValue(SupabaseConfig.anonKey, forHTTPHeaderField: "apikey")
 
         let body: [String: String] = [
-            "email": email,
+            "email": safeEmail,
             "password": password
         ]
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
@@ -52,6 +55,10 @@ final class AuthService {
         }
 
         guard (200...299).contains(httpResponse.statusCode) else {
+            // Manejar rate limit específicamente
+            if httpResponse.statusCode == 429 {
+                throw APIError.rateLimitExceeded
+            }
             let message = String(data: data, encoding: .utf8) ?? "Sign up error"
             throw APIError.serverError(httpResponse.statusCode, message)
         }
@@ -62,6 +69,9 @@ final class AuthService {
 
     // Inicia sesión con email/password y devuelve un SessionUser listo para usar.
     func login(email: String, password: String) async throws -> SessionUser {
+        // Normalizar email: eliminar espacios y convertir a minúsculas
+        let safeEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
         let endpoint = SupabaseConfig.projectURL
             .appendingPathComponent("auth/v1/token")
 
@@ -78,7 +88,7 @@ final class AuthService {
         request.setValue(SupabaseConfig.anonKey, forHTTPHeaderField: "apikey")
 
         let body: [String: String] = [
-            "email": email,
+            "email": safeEmail,
             "password": password
         ]
         request.httpBody = try JSONSerialization.data(withJSONObject: body)

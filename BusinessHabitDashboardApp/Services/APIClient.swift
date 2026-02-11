@@ -15,15 +15,22 @@ enum APIError: LocalizedError {
     case invalidResponse
     case serverError(Int, String)
     case decodingError
+    case rateLimitExceeded
 
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
             return "Respuesta inválida del servidor"
         case let .serverError(code, message):
+            // Mensaje específico para 429
+            if code == 429 {
+                return "Límite de solicitudes alcanzado. Por favor, espera unos minutos e inténtalo de nuevo."
+            }
             return "Error \(code): \(message)"
         case .decodingError:
             return "No se pudo decodificar la respuesta"
+        case .rateLimitExceeded:
+            return "Límite de envío de emails alcanzado. Espera 1 hora o contacta con soporte."
         }
     }
 }

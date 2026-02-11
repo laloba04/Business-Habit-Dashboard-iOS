@@ -9,83 +9,126 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var authViewModel: AuthViewModel
-    @State private var selectedTab: AuthTab = .login
-
-    enum AuthTab {
-        case login, signUp
-    }
+    @State private var showPassword = false
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Tabs personalizados
-                HStack(spacing: 0) {
-                    Button {
-                        selectedTab = .login
-                        authViewModel.errorMessage = nil
-                    } label: {
-                        Text("Entrar")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(selectedTab == .login ? Color.accentColor.opacity(0.1) : Color.clear)
-                    }
-                    .foregroundStyle(selectedTab == .login ? .primary : .secondary)
+            VStack(spacing: 24) {
+                // Header
+                VStack(spacing: 8) {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                        .font(.system(size: 60))
+                        .foregroundStyle(.blue.gradient)
 
-                    Button {
-                        selectedTab = .signUp
-                        authViewModel.errorMessage = nil
-                    } label: {
-                        Text("Registrarse")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(selectedTab == .signUp ? Color.accentColor.opacity(0.1) : Color.clear)
-                    }
-                    .foregroundStyle(selectedTab == .signUp ? .primary : .secondary)
+                    Text("Business & Habit")
+                        .font(.largeTitle.bold())
+
+                    Text("Gestiona tus hábitos y gastos")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
-                .background(Color(uiColor: .systemGroupedBackground))
+                .padding(.top, 60)
 
-                Form {
-                    Section(selectedTab == .login ? "Iniciar sesión" : "Crear cuenta") {
-                        TextField("Email", text: $authViewModel.email)
+                // Form
+                VStack(spacing: 16) {
+                    // Email
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Email")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(.secondary)
+
+                        TextField("tu@email.com", text: $authViewModel.email)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
-                        SecureField("Password", text: $authViewModel.password)
-
-                        if selectedTab == .signUp {
-                            Text("Mínimo 6 caracteres")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
+                            .autocorrectionDisabled()
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10)
                     }
 
-                    Section {
-                        Button {
-                            Task {
-                                if selectedTab == .login {
-                                    await authViewModel.login()
-                                } else {
-                                    await authViewModel.signUp()
-                                }
-                            }
-                        } label: {
-                            if authViewModel.isLoading {
-                                ProgressView()
+                    // Password
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Contraseña")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(.secondary)
+
+                        HStack {
+                            if showPassword {
+                                TextField("Ingresa tu contraseña", text: $authViewModel.password)
                             } else {
-                                Text(selectedTab == .login ? "Entrar" : "Crear cuenta")
+                                SecureField("Ingresa tu contraseña", text: $authViewModel.password)
+                            }
+
+                            Button {
+                                showPassword.toggle()
+                            } label: {
+                                Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
+                                    .foregroundStyle(.secondary)
                             }
                         }
-                        .disabled(authViewModel.email.isEmpty || authViewModel.password.isEmpty || authViewModel.isLoading)
-                    }
-
-                    if let error = authViewModel.errorMessage {
-                        Section {
-                            Text(error)
-                                .foregroundStyle(.red)
-                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
                     }
                 }
+                .padding(.horizontal, 24)
+
+                // Error message
+                if let error = authViewModel.errorMessage {
+                    Text(error)
+                        .font(.callout)
+                        .foregroundStyle(.red)
+                        .padding(.horizontal, 24)
+                }
+
+                // Login Button
+                Button {
+                    Task {
+                        await authViewModel.login()
+                    }
+                } label: {
+                    if authViewModel.isLoading {
+                        ProgressView()
+                            .tint(.white)
+                    } else {
+                        Text("Iniciar sesión")
+                            .font(.headline)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(isButtonDisabled ? Color.gray : Color.blue)
+                .foregroundStyle(.white)
+                .cornerRadius(12)
+                .disabled(isButtonDisabled)
+                .padding(.horizontal, 24)
+                .padding(.top, 8)
+
+                Spacer()
+
+                // Sign Up link
+                HStack {
+                    Text("¿No tienes cuenta?")
+                        .foregroundStyle(.secondary)
+
+                    NavigationLink("Regístrate") {
+                        SignUpView(authViewModel: authViewModel)
+                    }
+                    .fontWeight(.semibold)
+                }
+                .font(.subheadline)
+                .padding(.bottom, 32)
             }
-            .navigationTitle("Business & Habit")
+            .onAppear {
+                // Limpiar error al volver a esta vista
+                authViewModel.errorMessage = nil
+            }
         }
+    }
+
+    private var isButtonDisabled: Bool {
+        authViewModel.isLoading ||
+        authViewModel.email.isEmpty ||
+        authViewModel.password.isEmpty
     }
 }

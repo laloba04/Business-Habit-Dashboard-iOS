@@ -1,129 +1,277 @@
 # 🔒 Configuración Segura de Credenciales Supabase
 
-## ✅ Archivos creados
+## ✅ Sistema implementado: Template Files (como .env en React)
 
-- ✅ `.gitignore` - Previene que se suban credenciales a git
-- ✅ `Secrets.xcconfig` - Contiene tus credenciales (YA configurado con tus keys)
-- ✅ `Secrets-template.xcconfig` - Plantilla para otros desarrolladores
-- ✅ `SupabaseConfig.swift` - Modificado para leer credenciales de forma segura
+Este proyecto usa un sistema de **archivos template** para proteger las credenciales de Supabase, similar a cómo funcionan los archivos `.env` en proyectos React/Node.js.
 
-## 📋 Pasos para configurar Xcode (IMPORTANTE)
+---
 
-### 1. Agregar Secrets.xcconfig al proyecto Xcode
+## 📁 Archivos de seguridad
 
-1. Abre `BusinessHabitDashboardApp.xcodeproj` en Xcode
-2. En el Project Navigator (panel izquierdo), **arrastra** el archivo `Secrets.xcconfig` desde Finder al proyecto
-   - O haz clic derecho en la raíz del proyecto → "Add Files to BusinessHabitDashboardApp..."
-   - Navega a la raíz del proyecto y selecciona `Secrets.xcconfig`
-   - ⚠️ **IMPORTANTE**: Desmarca "Copy items if needed" (el archivo ya está en el lugar correcto)
-   - Asegúrate de que "Add to targets" incluya tu app target
+### ✅ Lo que SÍ está en git (público):
+- `SupabaseCredentials.swift.template` - Plantilla SIN credenciales reales
+- `SupabaseConfig.swift` - Código que lee las credenciales
+- `.gitignore` - Protección contra subir archivos sensibles
 
-### 2. Configurar el target para usar Secrets.xcconfig
+### ❌ Lo que NUNCA está en git (privado):
+- `SupabaseCredentials.swift` - TUS credenciales reales (gitignored)
+- `.env`, `.key`, `.pem` - Otros archivos sensibles
 
-1. Selecciona el proyecto en el Project Navigator (icono azul superior)
-2. En la sección "PROJECT" (no TARGETS), selecciona `BusinessHabitDashboardApp`
-3. Ve a la pestaña **"Info"**
-4. En "Configurations", expande "Debug" y "Release"
-5. Para **Debug** y **Release**:
-   - Haz clic en el dropdown que dice "None"
-   - Selecciona **"Secrets"** (aparecerá si agregaste correctamente el .xcconfig)
+---
 
-   Debería verse así:
-   ```
-   Debug   → Secrets
-   Release → Secrets
-   ```
+## 🚀 Setup inicial (primera vez)
 
-### 3. Agregar las variables al Info.plist
+### 1️⃣ Crear tus credenciales locales
 
-1. Selecciona tu target `BusinessHabitDashboardApp` en TARGETS
-2. Ve a la pestaña **"Info"**
-3. Haz clic derecho en cualquier fila → **"Add Row"**
-4. Agrega estas dos keys:
+```bash
+# Navega al directorio de Services
+cd BusinessHabitDashboardApp/Services/
 
-   | Key | Type | Value |
-   |-----|------|-------|
-   | `SUPABASE_URL` | String | `$(SUPABASE_URL)` |
-   | `SUPABASE_ANON_KEY` | String | `$(SUPABASE_ANON_KEY)` |
+# Copia el template a un archivo real
+cp SupabaseCredentials.swift.template SupabaseCredentials.swift
+```
 
-   ⚠️ **IMPORTANTE**: Escribe exactamente `$(SUPABASE_URL)` y `$(SUPABASE_ANON_KEY)` incluyendo los paréntesis y símbolo de dólar. Estas son referencias a las variables del .xcconfig.
+### 2️⃣ Editar con tus credenciales
 
-### 4. Verificar que funciona
-
-1. **Limpia el build**: Product → Clean Build Folder (⇧⌘K)
-2. **Compila el proyecto**: Product → Build (⌘B)
-3. Si hay errores de "SUPABASE_URL no encontrada", revisa los pasos anteriores
-
-## 🧪 Prueba rápida
-
-Puedes verificar que las credenciales se cargan correctamente agregando un print temporal:
+Abre `SupabaseCredentials.swift` y reemplaza con tus datos reales:
 
 ```swift
-// En BusinessHabitDashboardAppApp.swift, dentro de init()
-print("✅ Supabase URL:", SupabaseConfig.projectURL)
-print("✅ Anon Key:", String(SupabaseConfig.anonKey.prefix(20)) + "...")
+import Foundation
+
+enum SupabaseCredentials {
+    static let projectURL = URL(string: "https://TU-PROYECTO-ID.supabase.co")!
+    static let anonKey = "TU_ANON_KEY_REAL_AQUI"
+}
 ```
+
+### 3️⃣ Obtener credenciales de Supabase
+
+1. Ve a [supabase.com](https://supabase.com) → tu proyecto
+2. Sidebar → **Settings** → **API**
+3. Copia:
+   - **Project URL**: `https://xxxxx.supabase.co`
+   - **Project API keys** → **anon public**: `eyJhbGc...` (clave larga)
+
+### 4️⃣ Compilar y ejecutar
+
+1. Abre `BusinessHabitDashboardApp.xcodeproj` en Xcode
+2. ⌘R para compilar y ejecutar
+3. Si hay errores, verifica que `SupabaseCredentials.swift` existe y tiene tus credenciales
+
+---
 
 ## 🔐 Seguridad garantizada
 
-### ✅ Lo que SÍ se sube a git:
-- `Secrets-template.xcconfig` (plantilla sin credenciales reales)
-- `SupabaseConfig.swift` (código que lee variables, sin credenciales hardcodeadas)
-- `.gitignore` (protección)
-- Este archivo de instrucciones
+### ¿Cómo funciona la protección?
 
-### ❌ Lo que NUNCA se sube a git:
-- `Secrets.xcconfig` (contiene tus credenciales reales)
-- Archivos `.env`, `.key`, `.pem`
+El archivo `.gitignore` contiene:
 
-## 👥 Configuración para otros desarrolladores
+```gitignore
+# 🔒 SECRETS - NEVER COMMIT THESE FILES
+BusinessHabitDashboardApp/Services/SupabaseCredentials.swift
+.env
+.env.local
+*.key
+*.pem
+```
 
-Si alguien más clona el repositorio:
+Esto asegura que **NUNCA** se suban tus credenciales a git, incluso si haces `git add .`
 
-1. Copiar `Secrets-template.xcconfig` → `Secrets.xcconfig`
-2. Reemplazar las credenciales con sus propias keys de Supabase
-3. Seguir los pasos de configuración Xcode arriba
+### ✅ Verificar antes de hacer push
+
+```bash
+# Ver qué archivos se subirán
+git status
+
+# Deberías ver SOLO el template:
+✅ BusinessHabitDashboardApp/Services/SupabaseCredentials.swift.template
+
+# NO deberías ver (está protegido):
+❌ BusinessHabitDashboardApp/Services/SupabaseCredentials.swift
+```
+
+---
+
+## 👥 Para otros desarrolladores que clonen el repo
+
+Si alguien clona tu repositorio público, deberá seguir estos pasos:
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repo.git
+   cd tu-repo
+   ```
+
+2. **Crear archivo de credenciales**
+   ```bash
+   cd BusinessHabitDashboardApp/Services/
+   cp SupabaseCredentials.swift.template SupabaseCredentials.swift
+   ```
+
+3. **Configurar con SUS propias credenciales**
+   - Crear su propio proyecto en Supabase
+   - Copiar sus propias keys
+   - Editar `SupabaseCredentials.swift` con sus datos
+
+4. **Compilar**
+   ```bash
+   # Abrir Xcode y compilar normalmente
+   open BusinessHabitDashboardApp.xcodeproj
+   ```
+
+---
+
+## 🏗️ Arquitectura del sistema
+
+### SupabaseCredentials.swift (gitignored)
+```swift
+// Este archivo contiene TUS credenciales reales
+// NUNCA se sube a git
+enum SupabaseCredentials {
+    static let projectURL = URL(string: "https://real-id.supabase.co")!
+    static let anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### SupabaseCredentials.swift.template (en git)
+```swift
+// Este archivo es una plantilla para otros desarrolladores
+// SÍ se sube a git, pero sin credenciales reales
+enum SupabaseCredentials {
+    static let projectURL = URL(string: "https://YOUR-PROJECT-ID.supabase.co")!
+    static let anonKey = "YOUR_ANON_KEY_HERE"
+}
+```
+
+### SupabaseConfig.swift (en git)
+```swift
+// Lee las credenciales del archivo SupabaseCredentials.swift
+enum SupabaseConfig {
+    static var projectURL: URL {
+        return SupabaseCredentials.projectURL
+    }
+
+    static var anonKey: String {
+        return SupabaseCredentials.anonKey
+    }
+}
+```
+
+Todos los servicios (AuthService, HabitService, ExpenseService) usan `SupabaseConfig.projectURL` y `SupabaseConfig.anonKey`, nunca acceden directamente a las credenciales.
+
+---
 
 ## 🚀 Para CI/CD (GitHub Actions, Xcode Cloud)
 
-Cuando configures CI/CD en el futuro:
+Cuando configures integración continua:
 
-1. Agrega `SUPABASE_URL` y `SUPABASE_ANON_KEY` como **Secrets** en tu plataforma CI
-2. El workflow generará un `Secrets.xcconfig` automáticamente antes del build
-3. Ejemplo para GitHub Actions:
+### GitHub Actions
 
 ```yaml
-- name: Create Secrets.xcconfig
+- name: Create Supabase Credentials
   env:
     SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
     SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
   run: |
-    cat > Secrets.xcconfig <<EOF
-    SUPABASE_URL = $SUPABASE_URL
-    SUPABASE_ANON_KEY = $SUPABASE_ANON_KEY
+    cat > BusinessHabitDashboardApp/Services/SupabaseCredentials.swift <<EOF
+    import Foundation
+
+    enum SupabaseCredentials {
+        static let projectURL = URL(string: "$SUPABASE_URL")!
+        static let anonKey = "$SUPABASE_ANON_KEY"
+    }
     EOF
+
+- name: Build
+  run: xcodebuild -project BusinessHabitDashboardApp.xcodeproj ...
 ```
 
-## ❓ Solución de problemas
-
-### Error: "SUPABASE_URL no encontrada"
-
-1. Verifica que `Secrets.xcconfig` está agregado al proyecto en Xcode
-2. Verifica que el proyecto usa `Secrets` en Configurations (Debug/Release)
-3. Verifica que agregaste las keys al Info.plist con la sintaxis `$(VARIABLE)`
-4. Limpia y recompila (⇧⌘K, luego ⌘B)
-
-### El archivo Secrets.xcconfig no aparece en el dropdown
-
-1. Asegúrate de haberlo agregado al proyecto (no solo al filesystem)
-2. Debe estar en la raíz del proyecto, al mismo nivel que el .xcodeproj
-3. Haz Product → Clean Build Folder y reinicia Xcode
-
-## 📚 Referencias
-
-- [Apple Docs: Build Configuration](https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project)
-- [Supabase Security Best Practices](https://supabase.com/docs/guides/api/api-keys)
+1. Agrega secrets en GitHub: Settings → Secrets and variables → Actions
+2. Crea `SUPABASE_URL` y `SUPABASE_ANON_KEY`
+3. El workflow generará el archivo antes de compilar
 
 ---
 
-✅ **Configuración completada** - Tus credenciales ahora están protegidas y no se subirán a git.
+## 🆕 Nuevas features implementadas
+
+### Autenticación
+- ✅ **LoginView** - Vista de inicio de sesión limpia
+- ✅ **SignUpView** - Vista de registro separada con validación
+- ✅ Confirmación de contraseña
+- ✅ Validación en tiempo real
+- ✅ Auto-login después de registro exitoso
+- ✅ Sesión persistente con JWT
+
+### Diseño mejorado
+- ✅ Iconos con gradientes
+- ✅ Campos con fondos grises redondeados
+- ✅ Navegación fluida entre Login/SignUp
+- ✅ Mensajes de error claros
+- ✅ Botones deshabilitados según validaciones
+
+---
+
+## ❓ Solución de problemas
+
+### Error: "Cannot find 'SupabaseCredentials' in scope"
+
+**Causa**: El archivo `SupabaseCredentials.swift` no existe o no está agregado al proyecto.
+
+**Solución**:
+1. Verifica que existe: `ls BusinessHabitDashboardApp/Services/SupabaseCredentials.swift`
+2. Si no existe, créalo desde el template: `cp SupabaseCredentials.swift.template SupabaseCredentials.swift`
+3. Agrega tus credenciales reales
+4. Limpia y recompila: Product → Clean Build Folder (⇧⌘K)
+
+### Error: "Invalid URL" al compilar
+
+**Causa**: La URL en `SupabaseCredentials.swift` no es válida.
+
+**Solución**:
+```swift
+// ❌ MAL (sin https://)
+static let projectURL = URL(string: "xxxxx.supabase.co")!
+
+// ✅ BIEN (con https://)
+static let projectURL = URL(string: "https://xxxxx.supabase.co")!
+```
+
+### El archivo se sube a git por error
+
+**Causa**: El `.gitignore` no está funcionando o el archivo ya estaba tracked.
+
+**Solución**:
+```bash
+# Remover del tracking de git (sin borrar el archivo)
+git rm --cached BusinessHabitDashboardApp/Services/SupabaseCredentials.swift
+
+# Verificar que .gitignore está correcto
+cat .gitignore | grep SupabaseCredentials.swift
+
+# Debería mostrar:
+# BusinessHabitDashboardApp/Services/SupabaseCredentials.swift
+```
+
+---
+
+## 📊 Comparación con otros métodos
+
+| Método | Seguridad | Simplicidad | Usado en | Recomendado |
+|--------|-----------|-------------|----------|-------------|
+| **Template Files** (actual) | ✅ Alta | ✅ Muy simple | React, Node.js | ✅ Sí |
+| `.xcconfig` files | ✅ Alta | ⚠️ Complicado | iOS nativo | ⚠️ Problemático |
+| Hardcoded strings | ❌ Ninguna | ✅ Simple | ❌ Nunca | ❌ No |
+| Environment variables | ✅ Alta | ⚠️ Medio | Backend | ⚠️ No en iOS |
+| Keychain | ✅ Muy alta | ❌ Complejo | Apps enterprise | ⚠️ Overkill para API keys públicas |
+
+---
+
+## 📚 Referencias
+
+- [Supabase API Keys](https://supabase.com/docs/guides/api/api-keys) - Documentación oficial
+- [GitHub .gitignore](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files) - Protección de archivos
+- [Swift Package Manager Secrets](https://www.swiftbysundell.com/articles/handling-secrets-in-swift-packages/) - Patrones similares
+
+---
+
+✅ **Sistema configurado y protegido** - Tus credenciales están seguras y nunca se subirán a GitHub.
