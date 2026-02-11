@@ -1,3 +1,10 @@
+//
+//  HabitsView.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import SwiftUI
 
 struct HabitsView: View {

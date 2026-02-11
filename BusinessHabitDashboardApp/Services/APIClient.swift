@@ -1,18 +1,36 @@
+//
+//  APIClient.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import Foundation
 
+// Cliente HTTP genérico para endpoints REST de Supabase.
+// Centraliza headers, serialización y manejo básico de errores.
+
 enum APIError: LocalizedError {
+    // Errores típicos de red/decodificación que mostramos en la UI.
     case invalidResponse
     case serverError(Int, String)
     case decodingError
+    case rateLimitExceeded
 
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
             return "Respuesta inválida del servidor"
         case let .serverError(code, message):
+            // Mensaje específico para 429
+            if code == 429 {
+                return "Límite de solicitudes alcanzado. Por favor, espera unos minutos e inténtalo de nuevo."
+            }
             return "Error \(code): \(message)"
         case .decodingError:
             return "No se pudo decodificar la respuesta"
+        case .rateLimitExceeded:
+            return "Límite de envío de emails alcanzado. Espera 1 hora o contacta con soporte."
         }
     }
 }
@@ -31,6 +49,7 @@ final class APIClient {
         encoder.dateEncodingStrategy = .iso8601
     }
 
+    // Método genérico para peticiones REST que devuelven JSON decodificable.
     func request<T: Decodable>(
         path: String,
         method: String = "GET",

@@ -57,11 +57,26 @@ using (auth.uid() = user_id);
 create policy "Users can insert own expenses"
 on expenses for insert
 with check (auth.uid() = user_id);
+
+create policy "Users can update own expenses"
+on expenses for update
+using (auth.uid() = user_id);
+
+create policy "Users can delete own expenses"
+on expenses for delete
+using (auth.uid() = user_id);
 ```
 
 ## 4) Configurar app
 
-En `SupabaseConfig.swift` agrega tus valores.
+🔒 **IMPORTANTE**: NO agregues las credenciales directamente en el código.
+
+1. Abre el archivo `Secrets-template.xcconfig` en la raíz del proyecto
+2. Cópialo y renómbralo a `Secrets.xcconfig`
+3. Reemplaza `YOUR_PROJECT_ID` y `YOUR_ANON_KEY_HERE` con tus valores reales
+4. Sigue las instrucciones en **SETUP_SEGURO.md** para configurar Xcode
+
+El archivo `Secrets.xcconfig` está en `.gitignore` y nunca se subirá a git.
 
 ## 5) Validar endpoints
 

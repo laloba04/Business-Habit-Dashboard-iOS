@@ -1,4 +1,15 @@
+//
+//  ExpenseViewModel.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import Foundation
+import Combine
+
+// ViewModel de gastos:
+// mantiene lista, loading y errores para la pantalla de gastos.
 
 @MainActor
 final class ExpenseViewModel: ObservableObject {

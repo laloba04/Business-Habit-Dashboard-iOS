@@ -1,4 +1,14 @@
+//
+//  Habit.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import Foundation
+
+// Modelo de dominio para un hábito del usuario.
+// Se mapea 1:1 con la tabla `habits` de Supabase.
 
 struct Habit: Codable, Identifiable, Hashable {
     let id: UUID

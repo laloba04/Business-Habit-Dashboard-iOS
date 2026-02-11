@@ -1,4 +1,15 @@
+//
+//  HabitViewModel.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import Foundation
+import Combine
+
+// ViewModel de hábitos:
+// coordina la carga remota y actualiza el estado que consume la UI.
 
 @MainActor
 final class HabitViewModel: ObservableObject {

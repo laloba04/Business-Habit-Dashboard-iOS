@@ -1,4 +1,13 @@
+//
+//  ExpenseService.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import Foundation
+
+// Servicio de acceso a datos para gastos (lectura y creación).
 
 private struct ExpenseCreatePayload: Codable {
     let userID: UUID

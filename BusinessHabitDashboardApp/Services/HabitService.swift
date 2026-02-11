@@ -1,4 +1,13 @@
+//
+//  HabitService.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import Foundation
+
+// Servicio de acceso a datos para hábitos (CRUD básico vía REST).
 
 private struct HabitCreatePayload: Codable {
     let userID: UUID

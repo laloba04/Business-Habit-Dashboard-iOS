@@ -1,4 +1,14 @@
+//
+//  Expense.swift
+//  BusinessHabitDashboardApp
+//
+//  Created by Maria Bravo Angulo on 10/2/26.
+//
+
 import Foundation
+
+// Modelo de dominio para un gasto del usuario.
+// Se mapea 1:1 con la tabla `expenses` de Supabase.
 
 struct Expense: Codable, Identifiable, Hashable {
     let id: UUID
