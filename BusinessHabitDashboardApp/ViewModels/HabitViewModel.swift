@@ -54,4 +54,13 @@ final class HabitViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
     }
+
+    func deleteHabit(_ habit: Habit, user: SessionUser) async {
+        do {
+            try await HabitService.shared.deleteHabit(id: habit.id, token: user.accessToken)
+            habits.removeAll { $0.id == habit.id }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
 }

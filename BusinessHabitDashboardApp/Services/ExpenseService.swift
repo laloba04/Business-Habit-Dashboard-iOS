@@ -49,4 +49,13 @@ final class ExpenseService {
         guard let first = expenses.first else { throw APIError.decodingError }
         return first
     }
+
+    func deleteExpense(id: UUID, token: String) async throws {
+        let _: [Expense] = try await APIClient.shared.request(
+            path: "expenses",
+            method: "DELETE",
+            accessToken: token,
+            queryItems: [URLQueryItem(name: "id", value: "eq.\(id.uuidString)")]
+        )
+    }
 }

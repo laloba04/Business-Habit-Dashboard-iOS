@@ -38,6 +38,15 @@ struct ExpensesView: View {
                         Spacer()
                         Text(expense.amount, format: .currency(code: "EUR"))
                     }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            Task {
+                                await viewModel.deleteExpense(expense, user: user)
+                            }
+                        } label: {
+                            Label("Eliminar", systemImage: "trash.fill")
+                        }
+                    }
                 }
             }
         }

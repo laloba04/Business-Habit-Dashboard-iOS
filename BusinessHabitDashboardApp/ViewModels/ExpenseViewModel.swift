@@ -43,4 +43,13 @@ final class ExpenseViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
     }
+
+    func deleteExpense(_ expense: Expense, user: SessionUser) async {
+        do {
+            try await ExpenseService.shared.deleteExpense(id: expense.id, token: user.accessToken)
+            expenses.removeAll { $0.id == expense.id }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
 }
