@@ -40,6 +40,15 @@ struct HabitsView: View {
                             Text(habit.title)
                         }
                     }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            Task {
+                                await viewModel.deleteHabit(habit, user: user)
+                            }
+                        } label: {
+                            Label("Eliminar", systemImage: "trash.fill")
+                        }
+                    }
                 }
             }
         }
