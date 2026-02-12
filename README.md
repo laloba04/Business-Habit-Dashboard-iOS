@@ -8,6 +8,7 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
 - ✅ **Autenticación**:
   - Sign Up con validación de contraseña
   - Login con normalización de emails
+  - Logout con confirmación
   - Vistas separadas con diseño moderno
   - Confirmación de contraseña en tiempo real
   - Botones para mostrar/ocultar contraseñas
@@ -65,7 +66,8 @@ BusinessHabitDashboardApp/
     │   ├── DashboardView.swift         # Dashboard principal
     │   ├── HabitsView.swift            # Lista de hábitos
     │   ├── ExpensesView.swift          # Lista de gastos (formato EUR)
-    │   └── RootView.swift              # Vista raíz con navegación
+    │   ├── ProfileView.swift           # Perfil de usuario con logout
+    │   └── RootView.swift              # Vista raíz con navegación por tabs
     └── Docs/
         └── SUPABASE_SETUP.md           # Instrucciones de Supabase
 ```
@@ -134,6 +136,8 @@ Las credenciales **nunca** están en el código que se sube a git.
 
 ### ✅ Completado
 - [x] Autenticación con Sign Up y Login (vistas separadas)
+- [x] Vista de Perfil con botón de Logout
+- [x] Navegación por tabs: Dashboard / Hábitos / Gastos / Perfil
 - [x] Validación de contraseñas en tiempo real
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
@@ -142,8 +146,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] Arquitectura MVVM limpia
 
 ### 🚧 Próximas mejoras
-- [ ] **Vista de Perfil con botón de Logout** (prioridad alta)
-- [ ] Navegación por tabs: Dashboard / Hábitos / Gastos / Perfil
 - [ ] Reset password / recuperación de cuenta
 - [ ] Persistencia offline con CoreData
 - [ ] Notificaciones locales para recordatorios de hábitos

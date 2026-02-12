@@ -40,9 +40,9 @@ playground.xcworkspace
 Packages/
 Package.pins
 Package.resolved
-*.xcodeproj
+# Note: We need .xcodeproj in git, so NOT ignoring it
 # Comment the next line if you want to checkin your Xcode workspace.
-*.xcworkspace
+# *.xcworkspace
 
 # CocoaPods
 #
@@ -94,4 +94,18 @@ BusinessHabitDashboardApp/Services/SupabaseCredentials.swift
 
 # macOS
 .DS_Store
-BusinessHabitDashboardApp/Services/SupabaseCredentials.swift
+
+# Claude Code
+.claude/
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Editor temporary files
+*.swp
+*.swo
+*~
