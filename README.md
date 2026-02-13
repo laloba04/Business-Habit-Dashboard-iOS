@@ -29,8 +29,11 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
   - Botón de logout con confirmación
   - Opciones de actualización de email y contraseña
 - ✅ **Dashboard**:
-  - Métricas en tiempo real
-  - Gráficos con **Swift Charts**
+  - 8 métricas en tiempo real (hábitos y gastos)
+  - Métricas de hábitos: total, completados, pendientes, progreso %
+  - Métricas de gastos: total €, promedio €, registros, categorías
+  - Gráficos profesionales con **Swift Charts** (barras y dona)
+  - Animaciones y diseño con gradientes corporativos
 - ✅ **Diseño Visual Profesional**:
   - Sistema de colores corporativo (azul, verde, índigo)
   - Gradientes sutiles y profesionales
