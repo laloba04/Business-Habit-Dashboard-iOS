@@ -10,121 +10,171 @@ import SwiftUI
 struct LoginView: View {
     @ObservedObject var authViewModel: AuthViewModel
     @State private var showPassword = false
+    @State private var isVisible = false
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
-                // Header
-                VStack(spacing: 8) {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
-                        .font(.system(size: 60))
-                        .foregroundStyle(.blue.gradient)
+            ZStack {
+                // Fondo con gradiente
+                AppColors.authBackgroundGradient
+                    .ignoresSafeArea()
 
-                    Text("Business & Habit")
-                        .font(.largeTitle.bold())
+                ScrollView {
+                    VStack(spacing: AppStyles.spacingLarge) {
+                        Spacer()
+                            .frame(height: 60)
 
-                    Text("Gestiona tus hábitos y gastos")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.top, 60)
+                        // Header con animación
+                        VStack(spacing: AppStyles.spacingMedium) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white.opacity(0.2))
+                                    .frame(width: 100, height: 100)
 
-                // Form
-                VStack(spacing: 16) {
-                    // Email
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Email")
-                            .font(.subheadline.weight(.medium))
-                            .foregroundStyle(.secondary)
-
-                        TextField("tu@email.com", text: $authViewModel.email)
-                            .keyboardType(.emailAddress)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-                            .padding()
-                            .background(Color(.systemGray6))
-                            .cornerRadius(10)
-                    }
-
-                    // Password
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Contraseña")
-                            .font(.subheadline.weight(.medium))
-                            .foregroundStyle(.secondary)
-
-                        HStack {
-                            if showPassword {
-                                TextField("Ingresa tu contraseña", text: $authViewModel.password)
-                                    .textContentType(.none)
-                                    .autocorrectionDisabled()
-                            } else {
-                                SecureField("Ingresa tu contraseña", text: $authViewModel.password)
-                                    .textContentType(.none)
+                                Image(systemName: "chart.line.uptrend.xyaxis")
+                                    .font(.system(size: 50))
+                                    .foregroundStyle(.white)
                             }
+                            .scaleEffect(isVisible ? 1 : 0.5)
+                            .opacity(isVisible ? 1 : 0)
 
-                            Button {
-                                showPassword.toggle()
-                            } label: {
-                                Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
-                                    .foregroundStyle(.secondary)
-                            }
+                            Text("Business & Habit")
+                                .font(.system(size: 32, weight: .bold, design: .rounded))
+                                .foregroundStyle(.white)
+                                .offset(y: isVisible ? 0 : 20)
+                                .opacity(isVisible ? 1 : 0)
+
+                            Text("Gestiona tus hábitos y gastos")
+                                .font(.subheadline)
+                                .foregroundStyle(.white.opacity(0.9))
+                                .offset(y: isVisible ? 0 : 20)
+                                .opacity(isVisible ? 1 : 0)
                         }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
+                        .padding(.bottom, AppStyles.spacingLarge)
+
+                        // Card con formulario
+                        VStack(spacing: AppStyles.spacingLarge) {
+                            // Email
+                            VStack(alignment: .leading, spacing: AppStyles.spacingSmall) {
+                                Text("Email")
+                                    .font(.subheadline.weight(.medium))
+                                    .foregroundStyle(.secondary)
+
+                                TextField("tu@email.com", text: $authViewModel.email)
+                                    .keyboardType(.emailAddress)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+                                    .inputFieldStyle(icon: "envelope.fill")
+                            }
+
+                            // Password
+                            VStack(alignment: .leading, spacing: AppStyles.spacingSmall) {
+                                Text("Contraseña")
+                                    .font(.subheadline.weight(.medium))
+                                    .foregroundStyle(.secondary)
+
+                                HStack {
+                                    Image(systemName: "lock.fill")
+                                        .foregroundStyle(AppColors.textSecondary)
+                                        .frame(width: 20)
+
+                                    if showPassword {
+                                        TextField("Ingresa tu contraseña", text: $authViewModel.password)
+                                            .textContentType(.none)
+                                            .autocorrectionDisabled()
+                                    } else {
+                                        SecureField("Ingresa tu contraseña", text: $authViewModel.password)
+                                            .textContentType(.none)
+                                    }
+
+                                    Button {
+                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                                            showPassword.toggle()
+                                        }
+                                        let generator = UIImpactFeedbackGenerator(style: .light)
+                                        generator.impactOccurred()
+                                    } label: {
+                                        Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
+                                            .foregroundStyle(AppColors.textSecondary)
+                                    }
+                                }
+                                .padding()
+                                .background(AppColors.cardBackground)
+                                .cornerRadius(AppStyles.cornerRadiusMedium)
+                            }
+
+                            // Error message
+                            if let error = authViewModel.errorMessage {
+                                HStack {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                    Text(error)
+                                        .font(.callout)
+                                }
+                                .foregroundStyle(AppColors.error)
+                                .transition(.scale.combined(with: .opacity))
+                            }
+
+                            // Login Button
+                            Button {
+                                let generator = UIImpactFeedbackGenerator(style: .medium)
+                                generator.impactOccurred()
+                                Task {
+                                    await authViewModel.login()
+                                }
+                            } label: {
+                                if authViewModel.isLoading {
+                                    ProgressView()
+                                        .tint(.white)
+                                } else {
+                                    HStack {
+                                        Text("Iniciar sesión")
+                                        Image(systemName: "arrow.right.circle.fill")
+                                    }
+                                }
+                            }
+                            .buttonStyle(AppStyles.PrimaryButtonStyle(isDisabled: isButtonDisabled))
+                            .disabled(isButtonDisabled)
+                        }
+                        .padding(AppStyles.spacingLarge)
+                        .background(
+                            RoundedRectangle(cornerRadius: AppStyles.cornerRadiusLarge)
+                                .fill(.ultraThinMaterial)
+                        )
+                        .padding(.horizontal, AppStyles.spacingLarge)
+                        .offset(y: isVisible ? 0 : 30)
+                        .opacity(isVisible ? 1 : 0)
+
+                        Spacer()
+
+                        // Sign Up link
+                        HStack {
+                            Text("¿No tienes cuenta?")
+                                .foregroundStyle(.white.opacity(0.8))
+
+                            NavigationLink("Regístrate") {
+                                SignUpView(authViewModel: authViewModel)
+                            }
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+                        }
+                        .font(.subheadline)
+                        .offset(y: isVisible ? 0 : 20)
+                        .opacity(isVisible ? 1 : 0)
+
+                        Spacer()
+                            .frame(height: 32)
                     }
                 }
-                .padding(.horizontal, 24)
-
-                // Error message
-                if let error = authViewModel.errorMessage {
-                    Text(error)
-                        .font(.callout)
-                        .foregroundStyle(.red)
-                        .padding(.horizontal, 24)
-                }
-
-                // Login Button
-                Button {
-                    Task {
-                        await authViewModel.login()
-                    }
-                } label: {
-                    if authViewModel.isLoading {
-                        ProgressView()
-                            .tint(.white)
-                    } else {
-                        Text("Iniciar sesión")
-                            .font(.headline)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .background(isButtonDisabled ? Color.gray : Color.blue)
-                .foregroundStyle(.white)
-                .cornerRadius(12)
-                .disabled(isButtonDisabled)
-                .padding(.horizontal, 24)
-                .padding(.top, 8)
-
-                Spacer()
-
-                // Sign Up link
-                HStack {
-                    Text("¿No tienes cuenta?")
-                        .foregroundStyle(.secondary)
-
-                    NavigationLink("Regístrate") {
-                        SignUpView(authViewModel: authViewModel)
-                    }
-                    .fontWeight(.semibold)
-                }
-                .font(.subheadline)
-                .padding(.bottom, 32)
             }
             .onAppear {
-                // Limpiar error al volver a esta vista
                 authViewModel.errorMessage = nil
+
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                    isVisible = true
+                }
+            }
+            .onDisappear {
+                isVisible = false
             }
         }
     }
@@ -134,4 +184,8 @@ struct LoginView: View {
         authViewModel.email.isEmpty ||
         authViewModel.password.isEmpty
     }
+}
+
+#Preview {
+    LoginView(authViewModel: AuthViewModel())
 }
