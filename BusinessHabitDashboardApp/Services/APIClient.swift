@@ -17,6 +17,14 @@ enum APIError: LocalizedError {
     case decodingError
     case rateLimitExceeded
 
+    // Errores específicos de autenticación
+    case invalidCredentials
+    case invalidEmail
+    case weakPassword
+    case emailAlreadyInUse
+    case userNotFound
+    case networkError
+
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
@@ -31,6 +39,18 @@ enum APIError: LocalizedError {
             return "No se pudo decodificar la respuesta"
         case .rateLimitExceeded:
             return "Límite de envío de emails alcanzado. Espera 1 hora o contacta con soporte."
+        case .invalidCredentials:
+            return "Email o contraseña incorrectos. Por favor, verifica tus datos."
+        case .invalidEmail:
+            return "El email ingresado no es válido."
+        case .weakPassword:
+            return "La contraseña debe tener al menos 6 caracteres."
+        case .emailAlreadyInUse:
+            return "Este email ya está registrado. Intenta iniciar sesión."
+        case .userNotFound:
+            return "No existe una cuenta con este email."
+        case .networkError:
+            return "Error de conexión. Verifica tu internet e intenta de nuevo."
         }
     }
 }

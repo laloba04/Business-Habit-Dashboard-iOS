@@ -61,6 +61,53 @@ final class AuthViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: storageKey)
     }
 
+    // Actualiza la contraseña del usuario actual
+    func updatePassword(newPassword: String) async -> Result<Void, Error> {
+        guard let user = currentUser else {
+            return .failure(APIError.invalidResponse)
+        }
+
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            try await AuthService.shared.updatePassword(newPassword: newPassword, accessToken: user.accessToken)
+            isLoading = false
+            return .success(())
+        } catch {
+            isLoading = false
+            errorMessage = error.localizedDescription
+            return .failure(error)
+        }
+    }
+
+    // Actualiza el email del usuario actual
+    // Nota: Supabase requiere confirmación del nuevo email
+    func updateEmail(newEmail: String) async -> Result<Void, Error> {
+        guard let user = currentUser else {
+            return .failure(APIError.invalidResponse)
+        }
+
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            try await AuthService.shared.updateEmail(newEmail: newEmail, accessToken: user.accessToken)
+
+            // Actualizar el email localmente (la sesión sigue siendo válida)
+            let updatedUser = SessionUser(id: user.id, email: newEmail, accessToken: user.accessToken)
+            currentUser = updatedUser
+            persistSession(updatedUser)
+
+            isLoading = false
+            return .success(())
+        } catch {
+            isLoading = false
+            errorMessage = error.localizedDescription
+            return .failure(error)
+        }
+    }
+
     private func persistSession(_ user: SessionUser) {
         if let data = try? JSONEncoder().encode(user) {
             UserDefaults.standard.set(data, forKey: storageKey)
