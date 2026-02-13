@@ -29,8 +29,20 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
   - Botón de logout con confirmación
   - Opciones de actualización de email y contraseña
 - ✅ **Dashboard**:
-  - Métricas en tiempo real
-  - Gráficos con **Swift Charts**
+  - 8 métricas en tiempo real (hábitos y gastos)
+  - Métricas de hábitos: total, completados, pendientes, progreso %
+  - Métricas de gastos: total €, promedio €, registros, categorías
+  - Gráficos profesionales con **Swift Charts** (barras y dona)
+  - Animaciones y diseño con gradientes corporativos
+- ✅ **Diseño Visual Profesional**:
+  - Sistema de colores corporativo (azul, verde, índigo)
+  - Gradientes sutiles y profesionales
+  - Animaciones spring suaves en todas las vistas
+  - Haptic feedback en acciones importantes
+  - Onboarding interactivo de 4 pantallas (primera vez)
+  - Empty states motivacionales con SF Symbols
+  - Cards con sombras y efectos de profundidad
+  - Soporte completo para light/dark mode
 - ✅ **Seguridad**:
   - Credenciales en archivo separado (no en código)
   - Sistema de template para desarrollo colaborativo
@@ -54,7 +66,11 @@ BusinessHabitDashboardApp/
     ├── Models/
     │   ├── Habit.swift                 # Modelo de hábitos
     │   ├── Expense.swift               # Modelo de gastos
-    │   └── SessionUser.swift           # Modelo de sesión
+    │   ├── SessionUser.swift           # Modelo de sesión
+    │   └── OnboardingPage.swift        # Modelo de onboarding
+    ├── Theme/
+    │   ├── AppColors.swift             # Sistema de colores profesional
+    │   └── AppStyles.swift             # Estilos y componentes reutilizables
     ├── Services/
     │   ├── SupabaseConfig.swift            # Configuración de Supabase
     │   ├── SupabaseCredentials.swift       # 🔒 TUS CREDENCIALES (gitignored)
@@ -68,6 +84,7 @@ BusinessHabitDashboardApp/
     │   ├── HabitViewModel.swift        # Lógica de hábitos
     │   └── ExpenseViewModel.swift      # Lógica de gastos
     ├── Views/
+    │   ├── OnboardingView.swift        # Bienvenida interactiva (primera vez)
     │   ├── LoginView.swift             # Pantalla de login
     │   ├── SignUpView.swift            # Pantalla de registro
     │   ├── DashboardView.swift         # Dashboard principal
@@ -148,6 +165,10 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] Validación de contraseñas en tiempo real
 - [x] **Mensajes de error amigables y en español** (sin JSON técnico)
 - [x] **Swipe-to-delete** en listas de hábitos y gastos
+- [x] **Rediseño visual completo** con paleta profesional
+- [x] **Onboarding interactivo** de 4 pantallas
+- [x] **Animaciones y haptic feedback** en toda la app
+- [x] Soporte para **light/dark mode** con colores optimizados
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -161,10 +182,10 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [ ] Tests unitarios de ViewModels
 - [ ] Tests de integración de servicios
 - [ ] Capturas de pantalla y GIF para README
-- [ ] Modo oscuro personalizado
 - [ ] Sincronización en tiempo real (Supabase Realtime)
 - [ ] Estadísticas avanzadas y filtros por fecha
 - [ ] Exportación de datos a CSV/PDF
+- [ ] Widget para iOS Home Screen
 
 ---
 
