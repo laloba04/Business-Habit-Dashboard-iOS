@@ -12,15 +12,22 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
   - Vistas separadas con diseño moderno
   - Confirmación de contraseña en tiempo real
   - Botones para mostrar/ocultar contraseñas
-  - Manejo de errores específicos (rate limit)
+  - **Mensajes de error amigables en español** (sin JSON técnico)
+  - Manejo de errores específicos (credenciales inválidas, rate limit, etc.)
   - Sesión persistente con JWT
 - ✅ **Gestión de Hábitos**:
   - CRUD completo (crear, leer, actualizar, eliminar)
+  - **Swipe-to-delete** para eliminar hábitos de forma rápida
   - API integrada con Supabase
 - ✅ **Gestión de Gastos**:
   - CRUD completo por categorías
+  - **Swipe-to-delete** para eliminar gastos de forma rápida
   - API integrada con Supabase
   - Formato de moneda en euros (€)
+- ✅ **Perfil de Usuario**:
+  - Vista de perfil con información del usuario
+  - Botón de logout con confirmación
+  - Opciones de actualización de email y contraseña
 - ✅ **Dashboard**:
   - Métricas en tiempo real
   - Gráficos con **Swift Charts**
@@ -136,9 +143,11 @@ Las credenciales **nunca** están en el código que se sube a git.
 
 ### ✅ Completado
 - [x] Autenticación con Sign Up y Login (vistas separadas)
-- [x] Vista de Perfil con botón de Logout
+- [x] Vista de Perfil con botón de Logout y opciones de actualización
 - [x] Navegación por tabs: Dashboard / Hábitos / Gastos / Perfil
 - [x] Validación de contraseñas en tiempo real
+- [x] **Mensajes de error amigables y en español** (sin JSON técnico)
+- [x] **Swipe-to-delete** en listas de hábitos y gastos
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -146,7 +155,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] Arquitectura MVVM limpia
 
 ### 🚧 Próximas mejoras
-- [ ] Reset password / recuperación de cuenta
+- [ ] Reset password / recuperación de cuenta por email
 - [ ] Persistencia offline con CoreData
 - [ ] Notificaciones locales para recordatorios de hábitos
 - [ ] Tests unitarios de ViewModels
@@ -154,6 +163,8 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [ ] Capturas de pantalla y GIF para README
 - [ ] Modo oscuro personalizado
 - [ ] Sincronización en tiempo real (Supabase Realtime)
+- [ ] Estadísticas avanzadas y filtros por fecha
+- [ ] Exportación de datos a CSV/PDF
 
 ---
 
@@ -216,6 +227,13 @@ Este proyecto es de código abierto. Úsalo como base para tus propios proyectos
 3. Commit tus cambios (`git commit -m 'feat: nueva característica'`)
 4. Push a la rama (`git push origin feature/mejora`)
 5. Abre un Pull Request
+
+---
+
+## 👩‍💻 Autor
+
+**Maria Bravo Angulo**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/maria-bravo-angulo-363133337/)
 
 ---
 
