@@ -205,4 +205,64 @@ final class AuthService {
             throw APIError.serverError(httpResponse.statusCode, message)
         }
     }
+
+    // Solicita recuperación de contraseña mediante email
+    // Supabase enviará un email con un link mágico para resetear la contraseña
+    func resetPassword(email: String) async throws {
+        // Normalizar email
+        let safeEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
+        let endpoint = SupabaseConfig.projectURL
+            .appendingPathComponent("auth/v1/recover")
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(SupabaseConfig.anonKey, forHTTPHeaderField: "apikey")
+
+        // Incluir redirect URL para deep linking
+        let body: [String: Any] = [
+            "email": safeEmail,
+            "options": [
+                "redirectTo": "businesshabit://reset-password"
+            ]
+        ]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw parseError(statusCode: httpResponse.statusCode, data: data)
+        }
+    }
+
+    // Confirma el reset de contraseña con el token del deep link
+    func confirmPasswordReset(accessToken: String, newPassword: String) async throws {
+        let endpoint = SupabaseConfig.projectURL
+            .appendingPathComponent("auth/v1/user")
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(SupabaseConfig.anonKey, forHTTPHeaderField: "apikey")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+        let body: [String: String] = ["password": newPassword]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            let message = String(data: data, encoding: .utf8) ?? "Error al cambiar contraseña"
+            throw APIError.serverError(httpResponse.statusCode, message)
+        }
+    }
 }

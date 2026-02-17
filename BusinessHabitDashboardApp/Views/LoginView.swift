@@ -9,8 +9,10 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var authViewModel: AuthViewModel
+    @Binding var showResetPassword: Bool
     @State private var showPassword = false
     @State private var isVisible = false
+    @State private var showForgotPassword = false
 
     var body: some View {
         NavigationStack {
@@ -114,6 +116,21 @@ struct LoginView: View {
                                 .transition(.scale.combined(with: .opacity))
                             }
 
+                            // Forgot password link
+                            HStack {
+                                Spacer()
+                                Button {
+                                    let generator = UIImpactFeedbackGenerator(style: .light)
+                                    generator.impactOccurred()
+                                    showForgotPassword = true
+                                } label: {
+                                    Text("¿Olvidaste tu contraseña?")
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(.blue)
+                                }
+                            }
+
                             // Login Button
                             Button {
                                 let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -166,6 +183,12 @@ struct LoginView: View {
                     }
                 }
             }
+            .navigationDestination(isPresented: $showForgotPassword) {
+                ForgotPasswordView(authViewModel: authViewModel)
+            }
+            .navigationDestination(isPresented: $showResetPassword) {
+                ResetPasswordView(authViewModel: authViewModel)
+            }
             .onAppear {
                 authViewModel.errorMessage = nil
 
@@ -187,5 +210,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(authViewModel: AuthViewModel())
+    LoginView(authViewModel: AuthViewModel(), showResetPassword: .constant(false))
 }
