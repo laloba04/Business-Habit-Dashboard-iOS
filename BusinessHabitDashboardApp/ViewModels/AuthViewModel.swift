@@ -18,6 +18,8 @@ final class AuthViewModel: ObservableObject {
     @Published var currentUser: SessionUser?
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var passwordResetEmailSent = false
+    @Published var resetToken: String?
 
     // Clave para persistir la sesión en UserDefaults.
     private let storageKey = "session_user"
@@ -106,6 +108,45 @@ final class AuthViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             return .failure(error)
         }
+    }
+
+    // Solicita recuperación de contraseña mediante email
+    func requestPasswordReset(email: String) async {
+        isLoading = true
+        errorMessage = nil
+        passwordResetEmailSent = false
+
+        do {
+            try await AuthService.shared.resetPassword(email: email)
+            passwordResetEmailSent = true
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+
+        isLoading = false
+    }
+
+    // Confirma el reset de contraseña con el token del deep link
+    func confirmPasswordReset(accessToken: String, newPassword: String) async -> Result<Void, Error> {
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            try await AuthService.shared.confirmPasswordReset(accessToken: accessToken, newPassword: newPassword)
+            isLoading = false
+            return .success(())
+        } catch {
+            isLoading = false
+            errorMessage = error.localizedDescription
+            return .failure(error)
+        }
+    }
+
+    // Reinicia el estado de recuperación de contraseña
+    func resetPasswordResetState() {
+        passwordResetEmailSent = false
+        resetToken = nil
+        errorMessage = nil
     }
 
     private func persistSession(_ user: SessionUser) {

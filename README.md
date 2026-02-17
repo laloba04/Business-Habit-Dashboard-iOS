@@ -9,12 +9,14 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
   - Sign Up con validación de contraseña
   - Login con normalización de emails
   - Logout con confirmación
+  - **Reset password con deep links** (recuperación por email)
   - Vistas separadas con diseño moderno
   - Confirmación de contraseña en tiempo real
   - Botones para mostrar/ocultar contraseñas
   - **Mensajes de error amigables en español** (sin JSON técnico)
   - Manejo de errores específicos (credenciales inválidas, rate limit, etc.)
   - Sesión persistente con JWT
+  - **Deep linking** para recuperación de contraseña (URL scheme: `businesshabit://`)
 - ✅ **Gestión de Hábitos**:
   - CRUD completo (crear, leer, actualizar, eliminar)
   - **Swipe-to-delete** para eliminar hábitos de forma rápida
@@ -87,6 +89,8 @@ BusinessHabitDashboardApp/
     │   ├── OnboardingView.swift        # Bienvenida interactiva (primera vez)
     │   ├── LoginView.swift             # Pantalla de login
     │   ├── SignUpView.swift            # Pantalla de registro
+    │   ├── ForgotPasswordView.swift    # Solicitud de reset password
+    │   ├── ResetPasswordView.swift     # Cambio de contraseña con deep link
     │   ├── DashboardView.swift         # Dashboard principal
     │   ├── HabitsView.swift            # Lista de hábitos
     │   ├── ExpensesView.swift          # Lista de gastos (formato EUR)
@@ -169,6 +173,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Onboarding interactivo** de 4 pantallas
 - [x] **Animaciones y haptic feedback** en toda la app
 - [x] Soporte para **light/dark mode** con colores optimizados
+- [x] **Reset password con deep links** - Recuperación de cuenta por email
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -176,7 +181,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] Arquitectura MVVM limpia
 
 ### 🚧 Próximas mejoras
-- [ ] Reset password / recuperación de cuenta por email
 - [ ] Persistencia offline con CoreData
 - [ ] Notificaciones locales para recordatorios de hábitos
 - [ ] Tests unitarios de ViewModels
