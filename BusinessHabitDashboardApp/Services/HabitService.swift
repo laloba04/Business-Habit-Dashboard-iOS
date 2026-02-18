@@ -24,6 +24,17 @@ private struct HabitCreatePayload: Codable {
 private struct HabitUpdatePayload: Codable {
     let title: String?
     let completed: Bool?
+    let reminderEnabled: Bool?
+    let reminderTime: Date?
+    let reminderDays: [Int]?
+
+    enum CodingKeys: String, CodingKey {
+        case title
+        case completed
+        case reminderEnabled = "reminder_enabled"
+        case reminderTime = "reminder_time"
+        case reminderDays = "reminder_days"
+    }
 }
 
 final class HabitService {
@@ -55,8 +66,22 @@ final class HabitService {
         return first
     }
 
-    func updateHabit(id: UUID, title: String?, completed: Bool?, token: String) async throws -> Habit {
-        let payload = HabitUpdatePayload(title: title, completed: completed)
+    func updateHabit(
+        id: UUID,
+        title: String? = nil,
+        completed: Bool? = nil,
+        reminderEnabled: Bool? = nil,
+        reminderTime: Date? = nil,
+        reminderDays: [Int]? = nil,
+        token: String
+    ) async throws -> Habit {
+        let payload = HabitUpdatePayload(
+            title: title,
+            completed: completed,
+            reminderEnabled: reminderEnabled,
+            reminderTime: reminderTime,
+            reminderDays: reminderDays
+        )
         let body = try APIClient.shared.encode(payload)
         let habits: [Habit] = try await APIClient.shared.request(
             path: "habits",

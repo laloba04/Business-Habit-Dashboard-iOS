@@ -6,13 +6,44 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 @main
 struct BusinessHabitDashboardAppApp: App {
+    init() {
+        // Configurar el delegate de notificaciones para manejar interacciones
+        UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()
         }
+    }
+}
+
+// Delegate para manejar notificaciones
+class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    static let shared = NotificationDelegate()
+
+    // Mostrar notificaciones incluso cuando la app está en primer plano
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound, .badge])
+    }
+
+    // Manejar cuando el usuario toca una notificación
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        // Aquí podrías navegar a la vista de hábitos si lo deseas
+        print("Notificación tocada: \(response.notification.request.identifier)")
+        completionHandler()
     }
 }
 

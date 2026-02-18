@@ -20,6 +20,9 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
 - ✅ **Gestión de Hábitos**:
   - CRUD completo (crear, leer, actualizar, eliminar)
   - **Swipe-to-delete** para eliminar hábitos de forma rápida
+  - **Notificaciones locales** para recordatorios de hábitos
+  - Configuración personalizada: días de la semana y hora
+  - Indicador visual de recordatorios activos (icono de campana)
   - API integrada con Supabase
 - ✅ **Gestión de Gastos**:
   - CRUD completo por categorías
@@ -80,7 +83,8 @@ BusinessHabitDashboardApp/
     │   ├── AuthService.swift               # Servicio de autenticación
     │   ├── APIClient.swift                 # Cliente HTTP genérico
     │   ├── HabitService.swift              # CRUD de hábitos
-    │   └── ExpenseService.swift            # CRUD de gastos
+    │   ├── ExpenseService.swift            # CRUD de gastos
+    │   └── NotificationManager.swift       # Gestor de notificaciones locales
     ├── ViewModels/
     │   ├── AuthViewModel.swift         # Lógica de autenticación
     │   ├── HabitViewModel.swift        # Lógica de hábitos
@@ -93,11 +97,13 @@ BusinessHabitDashboardApp/
     │   ├── ResetPasswordView.swift     # Cambio de contraseña con deep link
     │   ├── DashboardView.swift         # Dashboard principal
     │   ├── HabitsView.swift            # Lista de hábitos
+    │   ├── HabitReminderView.swift     # Configuración de recordatorios
     │   ├── ExpensesView.swift          # Lista de gastos (formato EUR)
     │   ├── ProfileView.swift           # Perfil de usuario con logout
     │   └── RootView.swift              # Vista raíz con navegación por tabs
     └── Docs/
-        └── SUPABASE_SETUP.md           # Instrucciones de Supabase
+        ├── SUPABASE_SETUP.md           # Instrucciones de Supabase
+        └── NOTIFICATIONS_SETUP.md      # Configuración de notificaciones
 ```
 
 ---
@@ -174,6 +180,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Animaciones y haptic feedback** en toda la app
 - [x] Soporte para **light/dark mode** con colores optimizados
 - [x] **Reset password con deep links** - Recuperación de cuenta por email
+- [x] **Notificaciones locales** para recordatorios de hábitos (días y hora personalizable)
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -182,7 +189,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 
 ### 🚧 Próximas mejoras
 - [ ] Persistencia offline con CoreData
-- [ ] Notificaciones locales para recordatorios de hábitos
 - [ ] Tests unitarios de ViewModels
 - [ ] Tests de integración de servicios
 - [ ] Capturas de pantalla y GIF para README

@@ -58,7 +58,38 @@ final class HabitViewModel: ObservableObject {
     func deleteHabit(_ habit: Habit, user: SessionUser) async {
         do {
             try await HabitService.shared.deleteHabit(id: habit.id, token: user.accessToken)
+
+            // Cancelar notificaciones del hábito eliminado
+            NotificationManager.shared.cancelNotification(for: habit)
+
             habits.removeAll { $0.id == habit.id }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    /// Actualiza la configuración de recordatorio de un hábito.
+    func updateReminder(for habit: Habit, enabled: Bool, time: Date?, days: [Int]?, user: SessionUser) async {
+        do {
+            let updated = try await HabitService.shared.updateHabit(
+                id: habit.id,
+                reminderEnabled: enabled,
+                reminderTime: time,
+                reminderDays: days,
+                token: user.accessToken
+            )
+
+            // Actualizar en el array local
+            if let index = habits.firstIndex(where: { $0.id == updated.id }) {
+                habits[index] = updated
+            }
+
+            // Gestionar notificaciones
+            if enabled {
+                await NotificationManager.shared.scheduleNotification(for: updated)
+            } else {
+                NotificationManager.shared.cancelNotification(for: updated)
+            }
         } catch {
             errorMessage = error.localizedDescription
         }
