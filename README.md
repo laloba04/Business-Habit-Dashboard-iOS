@@ -39,6 +39,14 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
   - Métricas de gastos: total €, promedio €, registros, categorías
   - Gráficos profesionales con **Swift Charts** (barras y dona)
   - Animaciones y diseño con gradientes corporativos
+- ✅ **Estadísticas avanzadas**:
+  - Filtros por período: semana, mes, 3 meses y año
+  - Racha actual y mejor día de la semana
+  - Tasa de completación por hábito
+  - Distribución de gastos por categoría (gráfico dona)
+  - Evolución temporal del gasto (gráfico de línea)
+  - Comparativa vs período anterior con % de cambio
+  - Top 3 categorías de gasto
 - ✅ **Diseño Visual Profesional**:
   - Sistema de colores corporativo (azul, verde, índigo)
   - Gradientes sutiles y profesionales
@@ -88,7 +96,8 @@ BusinessHabitDashboardApp/
     ├── ViewModels/
     │   ├── AuthViewModel.swift         # Lógica de autenticación
     │   ├── HabitViewModel.swift        # Lógica de hábitos
-    │   └── ExpenseViewModel.swift      # Lógica de gastos
+    │   ├── ExpenseViewModel.swift      # Lógica de gastos
+    │   └── StatsViewModel.swift        # Lógica de estadísticas avanzadas
     ├── Views/
     │   ├── OnboardingView.swift        # Bienvenida interactiva (primera vez)
     │   ├── LoginView.swift             # Pantalla de login
@@ -98,6 +107,7 @@ BusinessHabitDashboardApp/
     │   ├── DashboardView.swift         # Dashboard principal
     │   ├── HabitsView.swift            # Lista de hábitos
     │   ├── HabitReminderView.swift     # Configuración de recordatorios
+    │   ├── StatsView.swift             # Estadísticas avanzadas con gráficos
     │   ├── ExpensesView.swift          # Lista de gastos (formato EUR)
     │   ├── ProfileView.swift           # Perfil de usuario con logout
     │   └── RootView.swift              # Vista raíz con navegación por tabs
@@ -181,6 +191,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] Soporte para **light/dark mode** con colores optimizados
 - [x] **Reset password con deep links** - Recuperación de cuenta por email
 - [x] **Notificaciones locales** para recordatorios de hábitos (días y hora personalizable)
+- [x] **Estadísticas avanzadas** con filtros por período y gráficos interactivos
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -190,6 +201,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 ### 🚧 Próximas mejoras
 - [ ] Persistencia offline con CoreData
 - [ ] Tests unitarios de ViewModels
+
 - [ ] Tests de integración de servicios
 - [ ] Capturas de pantalla y GIF para README
 - [ ] Sincronización en tiempo real (Supabase Realtime)
