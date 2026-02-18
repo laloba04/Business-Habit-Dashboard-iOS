@@ -116,16 +116,18 @@ struct HabitCard: View {
     @ObservedObject var viewModel: HabitViewModel
     let user: SessionUser
 
+    @State private var showReminderSheet = false
+
     var body: some View {
-        Button {
-            let generator = UIImpactFeedbackGenerator(style: .light)
-            generator.impactOccurred()
-            Task {
-                await viewModel.toggleCompletion(habit, user: user)
-            }
-        } label: {
-            HStack(spacing: AppStyles.spacingMedium) {
-                // Círculo de estado
+        HStack(spacing: AppStyles.spacingMedium) {
+            // Círculo de estado (clickeable para toggle)
+            Button {
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
+                Task {
+                    await viewModel.toggleCompletion(habit, user: user)
+                }
+            } label: {
                 ZStack {
                     Circle()
                         .fill(habit.completed ? AnyShapeStyle(AppColors.successGradient) : AnyShapeStyle(AppColors.cardBackground))
@@ -137,31 +139,36 @@ struct HabitCard: View {
                 }
                 .scaleEffect(habit.completed ? 1.05 : 1.0)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6), value: habit.completed)
-
-                // Texto
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(habit.title)
-                        .font(.body.weight(.semibold))
-                        .foregroundStyle(AppColors.textPrimary)
-                        .strikethrough(habit.completed)
-
-                    Text(habit.completed ? "Completado" : "Pendiente")
-                        .font(.caption)
-                        .foregroundStyle(habit.completed ? AppColors.success : AppColors.textSecondary)
-                }
-
-                Spacer()
-
-                // Badge de racha (si quieres agregar esta funcionalidad)
-                if habit.completed {
-                    Image(systemName: "star.fill")
-                        .foregroundStyle(.yellow)
-                        .font(.caption)
-                }
             }
-            .padding()
-            .cardStyle(shadow: true)
+
+            // Texto
+            VStack(alignment: .leading, spacing: 4) {
+                Text(habit.title)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(AppColors.textPrimary)
+                    .strikethrough(habit.completed)
+
+                Text(habit.completed ? "Completado" : "Pendiente")
+                    .font(.caption)
+                    .foregroundStyle(habit.completed ? AppColors.success : AppColors.textSecondary)
+            }
+
+            Spacer()
+
+            // Botón de recordatorio
+            Button {
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
+                showReminderSheet = true
+            } label: {
+                Image(systemName: habit.hasValidReminder ? "bell.fill" : "bell")
+                    .font(.title3)
+                    .foregroundStyle(habit.hasValidReminder ? Color(hex: "0891B2") : AppColors.textSecondary)
+                    .frame(width: 40, height: 40)
+            }
         }
+        .padding()
+        .cardStyle(shadow: true)
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button(role: .destructive) {
                 let generator = UINotificationFeedbackGenerator()
@@ -172,6 +179,9 @@ struct HabitCard: View {
             } label: {
                 Label("Eliminar", systemImage: "trash.fill")
             }
+        }
+        .sheet(isPresented: $showReminderSheet) {
+            HabitReminderView(habit: habit, viewModel: viewModel, user: user)
         }
     }
 }

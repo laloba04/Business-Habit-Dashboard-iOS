@@ -20,6 +20,9 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
 - ✅ **Gestión de Hábitos**:
   - CRUD completo (crear, leer, actualizar, eliminar)
   - **Swipe-to-delete** para eliminar hábitos de forma rápida
+  - **Notificaciones locales** para recordatorios de hábitos
+  - Configuración personalizada: días de la semana y hora
+  - Indicador visual de recordatorios activos (icono de campana)
   - API integrada con Supabase
 - ✅ **Gestión de Gastos**:
   - CRUD completo por categorías
@@ -80,7 +83,8 @@ BusinessHabitDashboardApp/
     │   ├── AuthService.swift               # Servicio de autenticación
     │   ├── APIClient.swift                 # Cliente HTTP genérico
     │   ├── HabitService.swift              # CRUD de hábitos
-    │   └── ExpenseService.swift            # CRUD de gastos
+    │   ├── ExpenseService.swift            # CRUD de gastos
+    │   └── NotificationManager.swift       # Gestor de notificaciones locales
     ├── ViewModels/
     │   ├── AuthViewModel.swift         # Lógica de autenticación
     │   ├── HabitViewModel.swift        # Lógica de hábitos
@@ -93,11 +97,13 @@ BusinessHabitDashboardApp/
     │   ├── ResetPasswordView.swift     # Cambio de contraseña con deep link
     │   ├── DashboardView.swift         # Dashboard principal
     │   ├── HabitsView.swift            # Lista de hábitos
+    │   ├── HabitReminderView.swift     # Configuración de recordatorios
     │   ├── ExpensesView.swift          # Lista de gastos (formato EUR)
     │   ├── ProfileView.swift           # Perfil de usuario con logout
     │   └── RootView.swift              # Vista raíz con navegación por tabs
     └── Docs/
-        └── SUPABASE_SETUP.md           # Instrucciones de Supabase
+        ├── SUPABASE_SETUP.md           # Instrucciones de Supabase
+        └── NOTIFICATIONS_SETUP.md      # Configuración de notificaciones
 ```
 
 ---
