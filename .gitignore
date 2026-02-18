@@ -105,6 +105,21 @@ BusinessHabitDashboardApp/Services/SupabaseCredentials.swift
 # Logs
 *.log
 
+# Documentos internos de implementación (no relevantes para el repo)
+CODIGO_IMPLEMENTADO.md
+DEEP_LINKS_SUMMARY.md
+IMPLEMENTACION_COMPLETADA.md
+IMPLEMENTACION_NOTIFICACIONES.md
+INFO_PLIST_SETUP.md
+QUICK_START_NOTIFICACIONES.md
+SETUP_SEGURO.md
+TESTING_DEEP_LINKS.md
+validate_notifications.sh
+Docs/DEEP_LINKS_SETUP.md
+Docs/NOTIFICACIONES_GUIA_VISUAL.md
+Docs/NOTIFICATIONS_SETUP.md
+Docs/VISUAL_REDESIGN.md
+
 # Editor temporary files
 *.swp
 *.swo
