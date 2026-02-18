@@ -180,6 +180,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Animaciones y haptic feedback** en toda la app
 - [x] Soporte para **light/dark mode** con colores optimizados
 - [x] **Reset password con deep links** - Recuperación de cuenta por email
+- [x] **Notificaciones locales** para recordatorios de hábitos (días y hora personalizable)
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -188,7 +189,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 
 ### 🚧 Próximas mejoras
 - [ ] Persistencia offline con CoreData
-- [ ] Notificaciones locales para recordatorios de hábitos
 - [ ] Tests unitarios de ViewModels
 - [ ] Tests de integración de servicios
 - [ ] Capturas de pantalla y GIF para README
