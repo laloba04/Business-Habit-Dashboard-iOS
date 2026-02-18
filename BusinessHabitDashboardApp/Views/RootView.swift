@@ -51,6 +51,13 @@ struct RootView: View {
                     }
 
                     NavigationStack {
+                        StatsView(habits: habitViewModel.habits, expenses: expenseViewModel.expenses)
+                    }
+                    .tabItem {
+                        Label("Estadísticas", systemImage: "chart.line.uptrend.xyaxis")
+                    }
+
+                    NavigationStack {
                         ProfileView(authViewModel: authViewModel, user: user)
                     }
                     .tabItem {
