@@ -58,7 +58,12 @@ struct RootView: View {
                     }
 
                     NavigationStack {
-                        ProfileView(authViewModel: authViewModel, user: user)
+                        ProfileView(
+                            authViewModel: authViewModel,
+                            user: user,
+                            habits: habitViewModel.habits,
+                            expenses: expenseViewModel.expenses
+                        )
                     }
                     .tabItem {
                         Label("Perfil", systemImage: "person.circle.fill")

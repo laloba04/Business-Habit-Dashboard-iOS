@@ -47,6 +47,10 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
   - Evolución temporal del gasto (gráfico de línea)
   - Comparativa vs período anterior con % de cambio
   - Top 3 categorías de gasto
+- ✅ **Exportación de datos**:
+  - Exportar hábitos, gastos o todo a CSV
+  - Share sheet nativo de iOS para compartir o guardar
+  - Formato CSV con cabeceras en español
 - ✅ **Diseño Visual Profesional**:
   - Sistema de colores corporativo (azul, verde, índigo)
   - Gradientes sutiles y profesionales
@@ -92,7 +96,8 @@ BusinessHabitDashboardApp/
     │   ├── APIClient.swift                 # Cliente HTTP genérico
     │   ├── HabitService.swift              # CRUD de hábitos
     │   ├── ExpenseService.swift            # CRUD de gastos
-    │   └── NotificationManager.swift       # Gestor de notificaciones locales
+    │   ├── NotificationManager.swift       # Gestor de notificaciones locales
+    │   └── ExportService.swift             # Exportación de datos a CSV
     ├── ViewModels/
     │   ├── AuthViewModel.swift         # Lógica de autenticación
     │   ├── HabitViewModel.swift        # Lógica de hábitos
@@ -108,6 +113,7 @@ BusinessHabitDashboardApp/
     │   ├── HabitsView.swift            # Lista de hábitos
     │   ├── HabitReminderView.swift     # Configuración de recordatorios
     │   ├── StatsView.swift             # Estadísticas avanzadas con gráficos
+    │   ├── ExportView.swift            # Exportación de datos a CSV
     │   ├── ExpensesView.swift          # Lista de gastos (formato EUR)
     │   ├── ProfileView.swift           # Perfil de usuario con logout
     │   └── RootView.swift              # Vista raíz con navegación por tabs
@@ -192,6 +198,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Reset password con deep links** - Recuperación de cuenta por email
 - [x] **Notificaciones locales** para recordatorios de hábitos (días y hora personalizable)
 - [x] **Estadísticas avanzadas** con filtros por período y gráficos interactivos
+- [x] **Exportación de datos a CSV** (hábitos, gastos o todo)
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -201,12 +208,9 @@ Las credenciales **nunca** están en el código que se sube a git.
 ### 🚧 Próximas mejoras
 - [ ] Persistencia offline con CoreData
 - [ ] Tests unitarios de ViewModels
-
 - [ ] Tests de integración de servicios
 - [ ] Capturas de pantalla y GIF para README
 - [ ] Sincronización en tiempo real (Supabase Realtime)
-- [ ] Estadísticas avanzadas y filtros por fecha
-- [ ] Exportación de datos a CSV/PDF
 - [ ] Widget para iOS Home Screen
 
 ---
