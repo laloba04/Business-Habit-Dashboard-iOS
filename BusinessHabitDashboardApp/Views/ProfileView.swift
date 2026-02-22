@@ -12,10 +12,15 @@ struct ProfileView: View {
     @ObservedObject var authViewModel: AuthViewModel
     let user: SessionUser
 
+    // Datos para exportación (recibidos desde RootView vía los ViewModels)
+    let habits: [Habit]
+    let expenses: [Expense]
+
     // Estados para los sheets
     @State private var showingChangePassword = false
     @State private var showingChangeEmail = false
     @State private var showingLogoutConfirmation = false
+    @State private var showingExport = false
 
     // Estados para modo oscuro
     @AppStorage("appearance_mode") private var appearanceMode: AppearanceMode = .system
@@ -156,6 +161,28 @@ struct ProfileView: View {
                     .padding(.horizontal, AppStyles.spacingLarge)
                 }
 
+                // Sección de Datos y privacidad
+                VStack(alignment: .leading, spacing: AppStyles.spacingMedium) {
+                    Text("Datos y privacidad")
+                        .font(.headline)
+                        .foregroundStyle(AppColors.textSecondary)
+                        .padding(.horizontal, AppStyles.spacingLarge)
+
+                    // Botón para exportar datos
+                    Button {
+                        let generator = UIImpactFeedbackGenerator(style: .light)
+                        generator.impactOccurred()
+                        showingExport = true
+                    } label: {
+                        ProfileActionRow(
+                            icon: "arrow.down.doc.fill",
+                            title: "Exportar datos",
+                            gradient: AppColors.accentGradient
+                        )
+                    }
+                    .padding(.horizontal, AppStyles.spacingLarge)
+                }
+
                 Spacer(minLength: 40)
 
                 // Botón de cerrar sesión
@@ -209,6 +236,9 @@ struct ProfileView: View {
         }
         .sheet(isPresented: $showingChangeEmail) {
             ChangeEmailView(authViewModel: authViewModel, currentEmail: user.email)
+        }
+        .sheet(isPresented: $showingExport) {
+            ExportView(habits: habits, expenses: expenses)
         }
     }
 
@@ -673,7 +703,9 @@ struct ChangeEmailView: View {
                 id: UUID(),
                 email: "usuario@ejemplo.com",
                 accessToken: "token_ejemplo"
-            )
+            ),
+            habits: [],
+            expenses: []
         )
     }
 }
