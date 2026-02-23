@@ -118,8 +118,7 @@ BusinessHabitDashboardApp/
     │   ├── ProfileView.swift           # Perfil de usuario con logout
     │   └── RootView.swift              # Vista raíz con navegación por tabs
     └── Docs/
-        ├── SUPABASE_SETUP.md           # Instrucciones de Supabase
-        └── NOTIFICATIONS_SETUP.md      # Configuración de notificaciones
+        └── SUPABASE_SETUP.md           # Instrucciones de Supabase
 ```
 
 ---
@@ -212,7 +211,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [ ] Tests de integración de servicios
 - [ ] Capturas de pantalla y GIF para README
 - [ ] Sincronización en tiempo real (Supabase Realtime)
-- [x] **Widget para iOS Home Screen** *(requiere dispositivo físico o simulador iOS estable para probar)*
 
 ---
 
