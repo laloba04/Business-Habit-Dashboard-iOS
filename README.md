@@ -2,6 +2,26 @@
 
 App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, conectada a Supabase con autenticación segura.
 
+## 📸 Capturas de pantalla
+
+| Login | Registro | Recuperar contraseña |
+|-------|----------|----------------------|
+| ![Login](Screenshots/06_login.png) | ![Registro](Screenshots/07_registro.png) | ![Recuperar](Screenshots/08_recuperar.png) |
+
+| Email enviado | Nueva contraseña | Contraseña actualizada |
+|---------------|------------------|------------------------|
+| ![Email enviado](Screenshots/08_recuperar_enviado.png) | ![Nueva contraseña](Screenshots/09_reset_password.png) | ![Actualizada](Screenshots/10_reset_password_done.png) |
+
+| Dashboard | Hábitos | Gastos |
+|-----------|---------|--------|
+| ![Dashboard](Screenshots/01_dashboard.png) | ![Hábitos](Screenshots/02_habitos.png) | ![Gastos](Screenshots/03_gastos.png) |
+
+| Estadísticas | Estadísticas (gráficos) | Perfil (dark mode) |
+|--------------|-------------------------|--------------------|
+| ![Estadísticas 1](Screenshots/04_estadisticas_1.png) | ![Estadísticas 2](Screenshots/04_estadisticas_2.png) | ![Perfil](Screenshots/05_perfil_2.png) |
+
+---
+
 ## ✅ Características implementadas
 
 - ✅ **Arquitectura MVVM** separada por capas
