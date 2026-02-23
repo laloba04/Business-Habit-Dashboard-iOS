@@ -6,8 +6,42 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4EF23B862F4C5FD200C0AA16 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF23B852F4C5FD200C0AA16 /* WidgetKit.framework */; };
+		4EF23B882F4C5FD200C0AA16 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF23B872F4C5FD200C0AA16 /* SwiftUI.framework */; };
+		4EF23B972F4C5FD400C0AA16 /* HabitWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4EF23B832F4C5FD200C0AA16 /* HabitWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4EF23B952F4C5FD400C0AA16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E93E3D42F3B26D8008CD8C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EF23B822F4C5FD200C0AA16;
+			remoteInfo = HabitWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4EF23B982F4C5FD400C0AA16 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4EF23B972F4C5FD400C0AA16 /* HabitWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4E741FCF2F4C675300B61B91 /* HabitWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitWidgetExtension.entitlements; sourceTree = "<group>"; };
 		4E93E3DC2F3B26D8008CD8C7 /* BusinessHabitDashboardApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BusinessHabitDashboardApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EF23B832F4C5FD200C0AA16 /* HabitWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HabitWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EF23B852F4C5FD200C0AA16 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4EF23B872F4C5FD200C0AA16 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -17,6 +51,13 @@
 				Info.plist,
 			);
 			target = 4E93E3DB2F3B26D8008CD8C7 /* BusinessHabitDashboardApp */;
+		};
+		4EF23B9C2F4C5FD400C0AA16 /* Exceptions for "HabitWidget" folder in "HabitWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4EF23B822F4C5FD200C0AA16 /* HabitWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -29,6 +70,14 @@
 			path = BusinessHabitDashboardApp;
 			sourceTree = "<group>";
 		};
+		4EF23B892F4C5FD200C0AA16 /* HabitWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4EF23B9C2F4C5FD400C0AA16 /* Exceptions for "HabitWidget" folder in "HabitWidgetExtension" target */,
+			);
+			path = HabitWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,13 +88,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4EF23B802F4C5FD200C0AA16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EF23B882F4C5FD200C0AA16 /* SwiftUI.framework in Frameworks */,
+				4EF23B862F4C5FD200C0AA16 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		4E93E3D32F3B26D8008CD8C7 = {
 			isa = PBXGroup;
 			children = (
+				4E741FCF2F4C675300B61B91 /* HabitWidgetExtension.entitlements */,
 				4E93E3DE2F3B26D8008CD8C7 /* BusinessHabitDashboardApp */,
+				4EF23B892F4C5FD200C0AA16 /* HabitWidget */,
+				4EF23B842F4C5FD200C0AA16 /* Frameworks */,
 				4E93E3DD2F3B26D8008CD8C7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,8 +115,18 @@
 			isa = PBXGroup;
 			children = (
 				4E93E3DC2F3B26D8008CD8C7 /* BusinessHabitDashboardApp.app */,
+				4EF23B832F4C5FD200C0AA16 /* HabitWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4EF23B842F4C5FD200C0AA16 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4EF23B852F4C5FD200C0AA16 /* WidgetKit.framework */,
+				4EF23B872F4C5FD200C0AA16 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,10 +139,12 @@
 				4E93E3D82F3B26D8008CD8C7 /* Sources */,
 				4E93E3D92F3B26D8008CD8C7 /* Frameworks */,
 				4E93E3DA2F3B26D8008CD8C7 /* Resources */,
+				4EF23B982F4C5FD400C0AA16 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4EF23B962F4C5FD400C0AA16 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4E93E3DE2F3B26D8008CD8C7 /* BusinessHabitDashboardApp */,
@@ -82,6 +155,28 @@
 			productName = BusinessHabitDashboardApp;
 			productReference = 4E93E3DC2F3B26D8008CD8C7 /* BusinessHabitDashboardApp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4EF23B822F4C5FD200C0AA16 /* HabitWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EF23B9B2F4C5FD400C0AA16 /* Build configuration list for PBXNativeTarget "HabitWidgetExtension" */;
+			buildPhases = (
+				4EF23B7F2F4C5FD200C0AA16 /* Sources */,
+				4EF23B802F4C5FD200C0AA16 /* Frameworks */,
+				4EF23B812F4C5FD200C0AA16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4EF23B892F4C5FD200C0AA16 /* HabitWidget */,
+			);
+			name = HabitWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = HabitWidgetExtension;
+			productReference = 4EF23B832F4C5FD200C0AA16 /* HabitWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -94,6 +189,9 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					4E93E3DB2F3B26D8008CD8C7 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					4EF23B822F4C5FD200C0AA16 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
@@ -113,12 +211,20 @@
 			projectRoot = "";
 			targets = (
 				4E93E3DB2F3B26D8008CD8C7 /* BusinessHabitDashboardApp */,
+				4EF23B822F4C5FD200C0AA16 /* HabitWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4E93E3DA2F3B26D8008CD8C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4EF23B812F4C5FD200C0AA16 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -135,7 +241,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4EF23B7F2F4C5FD200C0AA16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4EF23B962F4C5FD400C0AA16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4EF23B822F4C5FD200C0AA16 /* HabitWidgetExtension */;
+			targetProxy = 4EF23B952F4C5FD400C0AA16 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4E93E3E52F3B26DA008CD8C7 /* Debug */ = {
@@ -262,8 +383,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BusinessHabitDashboardApp/BusinessHabitDashboardApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BusinessHabitDashboardApp/Info.plist;
@@ -294,8 +417,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BusinessHabitDashboardApp/BusinessHabitDashboardApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BusinessHabitDashboardApp/Info.plist;
@@ -321,6 +446,68 @@
 			};
 			name = Release;
 		};
+		4EF23B992F4C5FD400C0AA16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = HabitWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HabitWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HabitWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BusinessHabitDashboardApp.BusinessHabitDashboardApp.HabitWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4EF23B9A2F4C5FD400C0AA16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = HabitWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HabitWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HabitWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BusinessHabitDashboardApp.BusinessHabitDashboardApp.HabitWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -338,6 +525,15 @@
 			buildConfigurations = (
 				4E93E3E82F3B26DA008CD8C7 /* Debug */,
 				4E93E3E92F3B26DA008CD8C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4EF23B9B2F4C5FD400C0AA16 /* Build configuration list for PBXNativeTarget "HabitWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EF23B992F4C5FD400C0AA16 /* Debug */,
+				4EF23B9A2F4C5FD400C0AA16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

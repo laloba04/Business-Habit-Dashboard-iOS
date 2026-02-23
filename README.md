@@ -16,7 +16,7 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
   - **Mensajes de error amigables en español** (sin JSON técnico)
   - Manejo de errores específicos (credenciales inválidas, rate limit, etc.)
   - Sesión persistente con JWT
-  - **Deep linking** para recuperación de contraseña (URL scheme: `businesshabit://`)
+  - **Deep linking** para recuperación de contraseña (URL scheme: `businesshabit://reset-password`)
 - ✅ **Gestión de Hábitos**:
   - CRUD completo (crear, leer, actualizar, eliminar)
   - **Swipe-to-delete** para eliminar hábitos de forma rápida
@@ -199,6 +199,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Notificaciones locales** para recordatorios de hábitos (días y hora personalizable)
 - [x] **Estadísticas avanzadas** con filtros por período y gráficos interactivos
 - [x] **Exportación de datos a CSV** (hábitos, gastos o todo)
+- [x] **Widget para iOS Home Screen** (small y medium, datos en tiempo real)
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -211,7 +212,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [ ] Tests de integración de servicios
 - [ ] Capturas de pantalla y GIF para README
 - [ ] Sincronización en tiempo real (Supabase Realtime)
-- [ ] Widget para iOS Home Screen
+- [x] **Widget para iOS Home Screen** *(requiere dispositivo físico o simulador iOS estable para probar)*
 
 ---
 
