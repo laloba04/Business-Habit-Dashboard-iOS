@@ -7,9 +7,11 @@
 
 import Foundation
 import Combine
+import WidgetKit
 
 // ViewModel de hábitos:
 // coordina la carga remota y actualiza el estado que consume la UI.
+// Tras cada mutación persiste los datos en el App Group para que el widget los lea.
 
 @MainActor
 final class HabitViewModel: ObservableObject {
@@ -23,6 +25,7 @@ final class HabitViewModel: ObservableObject {
 
         do {
             habits = try await HabitService.shared.fetchHabits(userID: user.id, token: user.accessToken)
+            persistHabitsToWidget()
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -34,6 +37,7 @@ final class HabitViewModel: ObservableObject {
         do {
             let created = try await HabitService.shared.createHabit(userID: user.id, title: title, token: user.accessToken)
             habits.insert(created, at: 0)
+            persistHabitsToWidget()
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -50,6 +54,7 @@ final class HabitViewModel: ObservableObject {
             if let index = habits.firstIndex(where: { $0.id == updated.id }) {
                 habits[index] = updated
             }
+            persistHabitsToWidget()
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -63,6 +68,7 @@ final class HabitViewModel: ObservableObject {
             NotificationManager.shared.cancelNotification(for: habit)
 
             habits.removeAll { $0.id == habit.id }
+            persistHabitsToWidget()
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -93,5 +99,22 @@ final class HabitViewModel: ObservableObject {
         } catch {
             errorMessage = error.localizedDescription
         }
+    }
+
+    // MARK: - Widget Data Sync
+
+    /// Serializa los hábitos actuales en UserDefaults del App Group
+    /// y fuerza la recarga de timelines del widget.
+    private func persistHabitsToWidget() {
+        let widgetHabits = habits.map {
+            WidgetHabit(id: $0.id.uuidString, title: $0.title, isCompleted: $0.completed)
+        }
+
+        if let data = try? JSONEncoder().encode(widgetHabits) {
+            UserDefaults(suiteName: "group.com.BusinessHabitDashboardApp.shared")?
+                .set(data, forKey: "widgetHabits")
+        }
+
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
