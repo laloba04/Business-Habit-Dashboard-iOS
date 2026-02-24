@@ -6,13 +6,9 @@ App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, cone
 
 ![Demo de la app](Screenshots/demo.gif)
 
-| Login | Dashboard | Hábitos | Gastos |
-|-------|-----------|---------|--------|
-| ![Login](Screenshots/06_login.png) | ![Dashboard](Screenshots/01_dashboard.png) | ![Hábitos](Screenshots/02_habitos.png) | ![Gastos](Screenshots/03_gastos.png) |
-
-| Swipe to delete | Estadísticas | Exportar datos | Widget |
-|-----------------|--------------|----------------|--------|
-| ![Swipe](Screenshots/13_swipe_eliminar.png) | ![Estadísticas](Screenshots/04_estadisticas_2.png) | ![Exportar](Screenshots/12_exportar.png) | ![Widget](Screenshots/11_widget.png) |
+| Dashboard | Estadísticas | Swipe to delete | Widget |
+|-----------|--------------|-----------------|--------|
+| ![Dashboard](Screenshots/01_dashboard.png) | ![Estadísticas](Screenshots/04_estadisticas_2.png) | ![Swipe](Screenshots/13_swipe_eliminar.png) | ![Widget](Screenshots/11_widget.png) |
 
 ---
 
@@ -213,6 +209,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Estadísticas avanzadas** con filtros por período y gráficos interactivos
 - [x] **Exportación de datos a CSV** (hábitos, gastos o todo)
 - [x] **Widget para iOS Home Screen** (small y medium, datos en tiempo real)
+- [x] **Tests unitarios** — 64 tests de modelos, ViewModels y servicios
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -221,9 +218,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 
 ### 🚧 Próximas mejoras
 - [ ] Persistencia offline con CoreData
-- [ ] Tests unitarios de ViewModels
-- [ ] Tests de integración de servicios
-- [ ] Capturas de pantalla y GIF para README
 - [ ] Sincronización en tiempo real (Supabase Realtime)
 
 ---
