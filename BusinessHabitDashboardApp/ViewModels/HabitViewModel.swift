@@ -101,6 +101,27 @@ final class HabitViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Realtime
+
+    /// Cancellable que mantiene la suscripción al subject de Realtime para hábitos.
+    private var realtimeCancellable: AnyCancellable?
+
+    /// Activa la escucha de cambios en tiempo real para la tabla `habits`.
+    /// El debounce agrupa ráfagas de cambios rápidos en una sola recarga.
+    func startRealtime(user: SessionUser) {
+        realtimeCancellable = RealtimeService.shared.habitsDidChange
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self else { return }
+                Task { await self.loadHabits(user: user) }
+            }
+    }
+
+    /// Desactiva la suscripción de Realtime para hábitos.
+    func stopRealtime() {
+        realtimeCancellable = nil
+    }
+
     // MARK: - Widget Data Sync
 
     /// Serializa los hábitos actuales en UserDefaults del App Group

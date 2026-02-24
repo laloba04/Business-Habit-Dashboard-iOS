@@ -52,4 +52,25 @@ final class ExpenseViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
     }
+
+    // MARK: - Realtime
+
+    /// Cancellable que mantiene la suscripción al subject de Realtime para gastos.
+    private var realtimeCancellable: AnyCancellable?
+
+    /// Activa la escucha de cambios en tiempo real para la tabla `expenses`.
+    /// El debounce agrupa ráfagas de cambios rápidos en una sola recarga.
+    func startRealtime(user: SessionUser) {
+        realtimeCancellable = RealtimeService.shared.expensesDidChange
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self else { return }
+                Task { await self.loadExpenses(user: user) }
+            }
+    }
+
+    /// Desactiva la suscripción de Realtime para gastos.
+    func stopRealtime() {
+        realtimeCancellable = nil
+    }
 }

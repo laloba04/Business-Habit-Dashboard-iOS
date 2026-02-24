@@ -210,6 +210,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Exportación de datos a CSV** (hábitos, gastos o todo)
 - [x] **Widget para iOS Home Screen** (small y medium, datos en tiempo real)
 - [x] **Tests unitarios** — 64 tests de modelos, ViewModels y servicios
+- [x] **Sincronización en tiempo real** con Supabase Realtime (WebSocket)
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -218,7 +219,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 
 ### 🚧 Próximas mejoras
 - [ ] Persistencia offline con CoreData
-- [ ] Sincronización en tiempo real (Supabase Realtime)
 
 ---
 
@@ -260,6 +260,8 @@ git status
   - Auth (autenticación)
   - PostgreSQL (base de datos)
   - Row Level Security (RLS)
+  - **Realtime** (sincronización en tiempo real vía WebSocket)
+  - Supabase Swift SDK
 - **Swift Charts** (gráficos nativos)
 - **async/await** (concurrencia moderna)
 - **MVVM** (arquitectura)
