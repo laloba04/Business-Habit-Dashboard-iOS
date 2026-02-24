@@ -73,6 +73,19 @@ struct RootView: View {
                     // Al abrir la app autenticada, cargamos datos iniciales
                     await habitViewModel.loadHabits(user: user)
                     await expenseViewModel.loadExpenses(user: user)
+
+                    // Iniciar suscripciones de Realtime para recibir cambios en vivo
+                    RealtimeService.shared.start(accessToken: user.accessToken)
+                    habitViewModel.startRealtime(user: user)
+                    expenseViewModel.startRealtime(user: user)
+                }
+                .onChange(of: authViewModel.currentUser) { _, newUser in
+                    // Detener Realtime cuando el usuario cierra sesión
+                    if newUser == nil {
+                        RealtimeService.shared.stop()
+                        habitViewModel.stopRealtime()
+                        expenseViewModel.stopRealtime()
+                    }
                 }
                 .transition(.opacity.combined(with: .scale))
             } else {
