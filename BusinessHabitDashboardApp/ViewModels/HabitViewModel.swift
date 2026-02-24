@@ -23,11 +23,27 @@ final class HabitViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
+        // Paso 1: cargar caché de CoreData para que la UI muestre datos inmediatamente.
+        let cached = PersistenceController.shared.fetchHabits(userID: user.id)
+        if !cached.isEmpty {
+            habits = cached
+        }
+
+        // Paso 2: solicitar datos frescos a Supabase.
         do {
-            habits = try await HabitService.shared.fetchHabits(userID: user.id, token: user.accessToken)
+            let fresh = try await HabitService.shared.fetchHabits(userID: user.id, token: user.accessToken)
+            habits = fresh
             persistHabitsToWidget()
+            // Actualizar caché con los datos frescos.
+            PersistenceController.shared.saveHabits(fresh)
         } catch {
-            errorMessage = error.localizedDescription
+            // Si ya hay datos en pantalla (de la caché), el error no se muestra al usuario.
+            // Si la caché estaba vacía, sí se muestra para que sepa que no hay datos.
+            if habits.isEmpty {
+                errorMessage = error.localizedDescription
+            } else {
+                print("[HabitViewModel] Error de red (usando caché): \(error)")
+            }
         }
 
         isLoading = false

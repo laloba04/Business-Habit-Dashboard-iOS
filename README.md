@@ -211,14 +211,12 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Widget para iOS Home Screen** (small y medium, datos en tiempo real)
 - [x] **Tests unitarios** — 64 tests de modelos, ViewModels y servicios
 - [x] **Sincronización en tiempo real** con Supabase Realtime (WebSocket)
+- [x] **Persistencia offline con CoreData** — datos disponibles sin conexión
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
 - [x] Sistema de seguridad para credenciales (template)
 - [x] Arquitectura MVVM limpia
-
-### 🚧 Próximas mejoras
-- [ ] Persistencia offline con CoreData
 
 ---
 

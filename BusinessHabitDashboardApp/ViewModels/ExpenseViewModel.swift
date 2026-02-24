@@ -21,10 +21,26 @@ final class ExpenseViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
+        // Paso 1: cargar caché de CoreData para que la UI muestre datos inmediatamente.
+        let cached = PersistenceController.shared.fetchExpenses(userID: user.id)
+        if !cached.isEmpty {
+            expenses = cached
+        }
+
+        // Paso 2: solicitar datos frescos a Supabase.
         do {
-            expenses = try await ExpenseService.shared.fetchExpenses(userID: user.id, token: user.accessToken)
+            let fresh = try await ExpenseService.shared.fetchExpenses(userID: user.id, token: user.accessToken)
+            expenses = fresh
+            // Actualizar caché con los datos frescos.
+            PersistenceController.shared.saveExpenses(fresh)
         } catch {
-            errorMessage = error.localizedDescription
+            // Si ya hay datos en pantalla (de la caché), el error no se muestra al usuario.
+            // Si la caché estaba vacía, sí se muestra para que sepa que no hay datos.
+            if expenses.isEmpty {
+                errorMessage = error.localizedDescription
+            } else {
+                print("[ExpenseViewModel] Error de red (usando caché): \(error)")
+            }
         }
 
         isLoading = false
