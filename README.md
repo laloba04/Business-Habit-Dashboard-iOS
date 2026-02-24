@@ -2,23 +2,13 @@
 
 App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, conectada a Supabase con autenticación segura.
 
-## 📸 Capturas de pantalla
+## 📸 Demo
 
-| Login | Registro | Recuperar contraseña |
-|-------|----------|----------------------|
-| ![Login](Screenshots/06_login.png) | ![Registro](Screenshots/07_registro.png) | ![Recuperar](Screenshots/08_recuperar.png) |
+![Demo de la app](Screenshots/demo.gif)
 
-| Email enviado | Nueva contraseña | Contraseña actualizada |
-|---------------|------------------|------------------------|
-| ![Email enviado](Screenshots/08_recuperar_enviado.png) | ![Nueva contraseña](Screenshots/09_reset_password.png) | ![Actualizada](Screenshots/10_reset_password_done.png) |
-
-| Dashboard | Hábitos | Gastos |
-|-----------|---------|--------|
-| ![Dashboard](Screenshots/01_dashboard.png) | ![Hábitos](Screenshots/02_habitos.png) | ![Gastos](Screenshots/03_gastos.png) |
-
-| Estadísticas | Estadísticas (gráficos) | Perfil (dark mode) |
-|--------------|-------------------------|--------------------|
-| ![Estadísticas 1](Screenshots/04_estadisticas_1.png) | ![Estadísticas 2](Screenshots/04_estadisticas_2.png) | ![Perfil](Screenshots/05_perfil_2.png) |
+| Dashboard | Estadísticas | Swipe to delete | Widget |
+|-----------|--------------|-----------------|--------|
+| ![Dashboard](Screenshots/01_dashboard.png) | ![Estadísticas](Screenshots/04_estadisticas_2.png) | ![Swipe](Screenshots/13_swipe_eliminar.png) | ![Widget](Screenshots/11_widget.png) |
 
 ---
 
@@ -219,6 +209,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Estadísticas avanzadas** con filtros por período y gráficos interactivos
 - [x] **Exportación de datos a CSV** (hábitos, gastos o todo)
 - [x] **Widget para iOS Home Screen** (small y medium, datos en tiempo real)
+- [x] **Tests unitarios** — 64 tests de modelos, ViewModels y servicios
 - [x] CRUD de hábitos con Supabase
 - [x] CRUD de gastos con Supabase (formato EUR)
 - [x] Dashboard con métricas y gráficos
@@ -227,9 +218,6 @@ Las credenciales **nunca** están en el código que se sube a git.
 
 ### 🚧 Próximas mejoras
 - [ ] Persistencia offline con CoreData
-- [ ] Tests unitarios de ViewModels
-- [ ] Tests de integración de servicios
-- [ ] Capturas de pantalla y GIF para README
 - [ ] Sincronización en tiempo real (Supabase Realtime)
 
 ---

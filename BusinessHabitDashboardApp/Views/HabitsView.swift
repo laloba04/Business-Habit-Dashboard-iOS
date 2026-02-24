@@ -49,19 +49,21 @@ struct HabitsView: View {
     }
 
     private var habitsList: some View {
-        ScrollView {
-            LazyVStack(spacing: AppStyles.spacingMedium) {
-                ForEach(Array(viewModel.habits.enumerated()), id: \.element.id) { index, habit in
-                    HabitCard(habit: habit, viewModel: viewModel, user: user)
-                        .transition(.asymmetric(
-                            insertion: .scale.combined(with: .opacity),
-                            removal: .opacity
-                        ))
-                        .animation(.spring(response: 0.4, dampingFraction: 0.7).delay(Double(index) * 0.05), value: viewModel.habits)
-                }
+        List {
+            ForEach(viewModel.habits) { habit in
+                HabitCard(habit: habit, viewModel: viewModel, user: user)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(
+                        top: AppStyles.spacingSmall,
+                        leading: AppStyles.spacingMedium,
+                        bottom: AppStyles.spacingSmall,
+                        trailing: AppStyles.spacingMedium
+                    ))
             }
-            .padding(AppStyles.spacingMedium)
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
     }
 
     private var emptyStateView: some View {
