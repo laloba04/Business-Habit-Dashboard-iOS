@@ -48,23 +48,33 @@ struct ExpensesView: View {
     }
 
     private var expensesList: some View {
-        ScrollView {
-            LazyVStack(spacing: AppStyles.spacingMedium) {
-                // Resumen total
-                totalCard
+        List {
+            // Resumen total
+            totalCard
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(
+                    top: AppStyles.spacingSmall,
+                    leading: AppStyles.spacingMedium,
+                    bottom: AppStyles.spacingSmall,
+                    trailing: AppStyles.spacingMedium
+                ))
 
-                // Lista de gastos
-                ForEach(Array(viewModel.expenses.enumerated()), id: \.element.id) { index, expense in
-                    ExpenseCard(expense: expense, viewModel: viewModel, user: user)
-                        .transition(.asymmetric(
-                            insertion: .scale.combined(with: .opacity),
-                            removal: .opacity
-                        ))
-                        .animation(.spring(response: 0.4, dampingFraction: 0.7).delay(Double(index) * 0.05), value: viewModel.expenses)
-                }
+            // Lista de gastos
+            ForEach(viewModel.expenses) { expense in
+                ExpenseCard(expense: expense, viewModel: viewModel, user: user)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(
+                        top: AppStyles.spacingSmall,
+                        leading: AppStyles.spacingMedium,
+                        bottom: AppStyles.spacingSmall,
+                        trailing: AppStyles.spacingMedium
+                    ))
             }
-            .padding(AppStyles.spacingMedium)
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
     }
 
     private var totalCard: some View {

@@ -2,23 +2,17 @@
 
 App iOS profesional (SwiftUI + MVVM) para seguimiento de hábitos y gastos, conectada a Supabase con autenticación segura.
 
-## 📸 Capturas de pantalla
+## 📸 Demo
 
-| Login | Registro | Recuperar contraseña |
-|-------|----------|----------------------|
-| ![Login](Screenshots/06_login.png) | ![Registro](Screenshots/07_registro.png) | ![Recuperar](Screenshots/08_recuperar.png) |
+![Demo de la app](Screenshots/demo.gif)
 
-| Email enviado | Nueva contraseña | Contraseña actualizada |
-|---------------|------------------|------------------------|
-| ![Email enviado](Screenshots/08_recuperar_enviado.png) | ![Nueva contraseña](Screenshots/09_reset_password.png) | ![Actualizada](Screenshots/10_reset_password_done.png) |
+| Login | Dashboard | Hábitos | Gastos |
+|-------|-----------|---------|--------|
+| ![Login](Screenshots/06_login.png) | ![Dashboard](Screenshots/01_dashboard.png) | ![Hábitos](Screenshots/02_habitos.png) | ![Gastos](Screenshots/03_gastos.png) |
 
-| Dashboard | Hábitos | Gastos |
-|-----------|---------|--------|
-| ![Dashboard](Screenshots/01_dashboard.png) | ![Hábitos](Screenshots/02_habitos.png) | ![Gastos](Screenshots/03_gastos.png) |
-
-| Estadísticas | Estadísticas (gráficos) | Perfil (dark mode) |
-|--------------|-------------------------|--------------------|
-| ![Estadísticas 1](Screenshots/04_estadisticas_1.png) | ![Estadísticas 2](Screenshots/04_estadisticas_2.png) | ![Perfil](Screenshots/05_perfil_2.png) |
+| Swipe to delete | Estadísticas | Exportar datos | Widget |
+|-----------------|--------------|----------------|--------|
+| ![Swipe](Screenshots/13_swipe_eliminar.png) | ![Estadísticas](Screenshots/04_estadisticas_2.png) | ![Exportar](Screenshots/12_exportar.png) | ![Widget](Screenshots/11_widget.png) |
 
 ---
 
