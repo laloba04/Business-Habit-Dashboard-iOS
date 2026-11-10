@@ -209,7 +209,7 @@ Las credenciales **nunca** están en el código que se sube a git.
 - [x] **Estadísticas avanzadas** con filtros por período y gráficos interactivos
 - [x] **Exportación de datos a CSV** (hábitos, gastos o todo)
 - [x] **Widget para iOS Home Screen** (small y medium, datos en tiempo real)
-- [x] **Tests unitarios** — 64 tests de modelos, ViewModels y servicios
+- [x] **Tests unitarios** — 73 tests de modelos, ViewModels y servicios
 - [x] **Sincronización en tiempo real** con Supabase Realtime (WebSocket)
 - [x] **Persistencia offline con CoreData** — datos disponibles sin conexión
 - [x] CRUD de hábitos con Supabase
